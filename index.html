@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BiG KiD CARDS Score Keeper</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=OCR-A&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Home.jpg') no-repeat center center/cover;
+            color: #FFFFFF;
+            min-height: 100vh;
+            padding: 1rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            transition: background 0.3s;
+        }
+        /* Splash Screen */
+        #splash-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Start.jpg') no-repeat center center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding-bottom: 3rem;
+        }
+        #splash-screen h1 {
+            font-size: 2.25rem;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem 1.25rem;
+            border-radius: 12.5px;
+        }
+        #splash-screen p {
+            font-size: 1.5rem;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+        #splash-screen textarea {
+            padding: 0.5rem;
+            font-size: 1.25rem;
+            width: 90%;
+            max-width: 375px;
+            height: 150px;
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            background-color: rgba(0, 95, 107, 0.8);
+            color: #FFFFFF;
+            text-align: center;
+            margin-bottom: 1rem;
+            resize: none;
+            outline: none;
+            touch-action: manipulation;
+        }
+        #splash-screen button {
+            padding: 1rem 2.5rem;
+            font-size: 1.5rem;
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            background-color: #008390;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            min-height: 60px;
+        }
+        #splash-screen button:hover {
+            background-color: #006F7D;
+            transform: scale(1.05);
+        }
+        /* Main Content */
+        #main-content {
+            display: none;
+            flex-grow: 1;
+            flex-direction: column;
+            position: relative;
+            padding-bottom: 5rem;
+        }
+        h1 {
+            color: #00C4B4;
+            margin-bottom: 1.875rem;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 2.5rem;
+            text-shadow: 2.5px 2.5px 5px rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.625rem 1.25rem;
+            border-radius: 12.5px;
+        }
+        .players-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(375px, 1fr));
+            gap: 1.875rem;
+            width: 100%;
+            flex-grow: 1;
+        }
+        .player-section {
+            margin-bottom: 1.875rem;
+            text-align: center;
+        }
+        .player-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.625rem;
+            border-radius: 12.5px;
+        }
+        .player-section h2 {
+            color: #008390;
+            font-size: 1.875rem;
+            text-transform: uppercase;
+            text-shadow: 1.25px 1.25px 3.75px rgba(0, 0, 0, 0.5);
+        }
+        .total-score {
+            font-size: 1.5rem;
+            color: #00C4B4;
+            font-weight: bold;
+            text-shadow: 1.25px 1.25px 2.5px rgba(0, 0, 0, 0.5);
+        }
+        .score-container {
+            display: flex;
+            justify-content: center;
+            gap: 1.25rem;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        .score-card {
+            background: rgba(0, 95, 107, 0.8);
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            padding: 1.875rem;
+            width: 100%;
+            max-width: 312.5px;
+            text-align: center;
+            position: relative;
+        }
+        .score-card h3 {
+            font-size: 1.375rem;
+            color: #FFFFFF;
+            margin-bottom: 0.625rem;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .score-display {
+            font-size: 2.5rem;
+            color: #00C4B4;
+            margin: 0.625rem 0;
+            font-weight: bold;
+            text-shadow: 1.25px 1.25px 2.5px rgba(0, 0, 0, 0.5);
+        }
+        .score-controls button {
+            padding: 0.625rem 1.25rem;
+            font-size: 1.875rem;
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            cursor: pointer;
+            margin: 0 0.625rem;
+            transition: background-color 0.2s, transform 0.2s;
+            touch-action: manipulation;
+            min-height: 60px;
+        }
+        .score-controls .plus {
+            background-color: #008390;
+            color: #FFFFFF;
+        }
+        .score-controls .plus:hover {
+            background-color: #006F7D;
+            transform: scale(1.05);
+        }
+        .score-controls .minus {
+            background-color: #005F6B;
+            color: #00C4B4;
+        }
+        .score-controls .minus:hover {
+            background-color: #004D58;
+            transform: scale(1.05);
+        }
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: rgba(0, 95, 107, 0.8);
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            padding: 3.28125rem;
+            text-align: center;
+            max-width: 90%;
+            width: 656.25px;
+        }
+        .modal-content p {
+            color: #FFFFFF;
+            font-size: 2.1875rem;
+            margin-bottom: 2.1875rem;
+            text-transform: uppercase;
+        }
+        .modal-content input {
+            padding: 1.09375rem;
+            font-size: 2.1875rem;
+            width: 218.75px;
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            background-color: rgba(0, 95, 107, 0.8);
+            color: #FFFFFF;
+            text-align: center;
+            margin-bottom: 2.1875rem;
+            touch-action: manipulation;
+        }
+        .modal-content button {
+            padding: 1.09375rem 2.1875rem;
+            font-size: 2.1875rem;
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            cursor: pointer;
+            margin: 0 1.09375rem;
+            transition: background-color 0.2s, transform 0.2s;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            min-height: 105px;
+        }
+        .modal-content .submit {
+            background-color: #008390;
+            color: #FFFFFF;
+        }
+        .modal-content .submit:hover {
+            background-color: #006F7D;
+            transform: scale(1.05);
+        }
+        .modal-content .cancel {
+            background-color: #005F6B;
+            color: #00C4B4;
+        }
+        .modal-content .cancel:hover {
+            background-color: #004D58;
+            transform: scale(1.05);
+        }
+        .keypad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.09375rem;
+            margin-top: 2.1875rem;
+            margin-bottom: 2.1875rem;
+        }
+        .keypad-button {
+            padding: 1.09375rem;
+            font-size: 3.28125rem;
+            background-color: #008390;
+            color: #FFFFFF;
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            touch-action: manipulation;
+            min-height: 105px;
+            min-width: 105px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .keypad-button:hover {
+            background-color: #006F7D;
+        }
+        .keypad-button.back, .keypad-button.clear {
+            background-color: #005F6B;
+            color: #00C4B4;
+        }
+        .keypad-button.back:hover, .keypad-button.clear:hover {
+            background-color: #004D58;
+        }
+        /* Winners Circle Cover */
+        #winners-circle-cover {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Winner.jpg') no-repeat center center/cover;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2000;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        #winners-circle-cover h1 {
+            font-size: 2.5rem;
+            color: #FFFFFF;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.5rem 1.25rem;
+            border-radius: 12.5px;
+        }
+        .license-plates {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem 0;
+        }
+        .category-tile {
+            background: #FFD700;
+            border: 5px solid #000;
+            border-radius: 6.25px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+            padding: 0.625rem;
+            text-align: center;
+            position: relative;
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-width: 450px;
+            min-height: 225px;
+            opacity: 0;
+            transform: scale(0.5);
+            box-sizing: border-box;
+        }
+        .category-tile.active {
+            opacity: 1;
+            transform: scale(1);
+            animation: slideBounce 0.5s ease-in-out;
+        }
+        @keyframes slideBounce {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.5);
+            }
+            70% {
+                opacity: 1;
+                transform: translateY(-10px) scale(1.05);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+        .category-tile h3 {
+            font-size: 1.125rem;
+            color: #000;
+            margin-bottom: 0.25rem;
+            text-transform: uppercase;
+            white-space: nowrap;
+            font-weight: bold;
+            letter-spacing: 1.25px;
+        }
+        .winner-reveal {
+            font-size: 2rem;
+            color: #000;
+            margin: 0.25rem 0;
+            font-weight: bold;
+            text-shadow: 1.25px 1.25px 2.5px rgba(255, 255, 255, 0.5);
+            letter-spacing: 1.25px;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'OCR-A', monospace;
+            text-transform: uppercase;
+            line-height: 1.2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            word-wrap: break-word;
+            white-space: normal;
+        }
+        .sticker-boxes {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 0.25rem;
+        }
+        .sticker-box {
+            background: rgba(255, 255, 255, 0.6);
+            border: 2.5px solid #000;
+            height: 23.4375px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: inset 0 0 6.25px rgba(0, 0, 0, 0.3);
+        }
+        .sticker-box:nth-child(2) {
+            width: 50%;
+            margin: 0 2.5%;
+        }
+        .sticker-box:nth-child(1),
+        .sticker-box:nth-child(3) {
+            width: 24%;
+        }
+        .sticker-box span {
+            font-size: 0.875rem;
+            color: #000;
+            white-space: nowrap;
+            transform-origin: center;
+        }
+        #winners-circle-cover button {
+            padding: 1rem 2.5rem;
+            font-size: 1.5rem;
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            background-color: #008390;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            min-height: 60px;
+            width: auto;
+            display: block;
+            text-align: center;
+            line-height: normal;
+        }
+        #winners-circle-cover button:hover {
+            background-color: #006F7D;
+            transform: scale(1.05);
+        }
+        #winners-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0.625rem;
+            margin: 1rem 0;
+        }
+        /* Reset Confirmation Modal */
+        #reset-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+        }
+        #reset-modal .modal-content {
+            background: rgba(0, 95, 107, 0.8);
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            padding: 1.875rem;
+            text-align: center;
+            max-width: 90%;
+            width: 375px;
+        }
+        #reset-modal .modal-content p {
+            color: #FFFFFF;
+            font-size: 1.25rem;
+            margin-bottom: 1.25rem;
+            text-transform: uppercase;
+        }
+        #reset-modal .modal-content button {
+            padding: 0.625rem 1.25rem;
+            font-size: 1.25rem;
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            cursor: pointer;
+            margin: 0 0.625rem;
+            transition: background-color 0.2s, transform 0.2s;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            min-height: 60px;
+        }
+        #reset-modal .modal-content .submit {
+            background-color: #008390;
+            color: #FFFFFF;
+        }
+        #reset-modal .modal-content .submit:hover {
+            background-color: #006F7D;
+            transform: scale(1.05);
+        }
+        #reset-modal .modal-content .cancel {
+            background-color: #005F6B;
+            color: #00C4B4;
+        }
+        #reset-modal .modal-content .cancel:hover {
+            background-color: #004D58;
+            transform: scale(1.05);
+        }
+        /* Exhaust Smoke Animation */
+        .exhaust-smoke {
+            position: absolute;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            opacity: 0;
+            animation: smoke 0.5s ease-out;
+            pointer-events: none;
+        }
+        @keyframes smoke {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(2);
+            }
+        }
+        .exhaust-smoke::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 70%);
+            animation: puff 0.5s ease-out;
+        }
+        @keyframes puff {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(3);
+            }
+        }
+        /* Tire Marks Animation */
+        .tire-marks {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 5px;
+            background: repeating-linear-gradient(to right, #000 0, #000 10px, transparent 10px, transparent 20px);
+            opacity: 0;
+            animation: skid 0.5s ease-out;
+            pointer-events: none;
+        }
+        @keyframes skid {
+            0% {
+                opacity: 1;
+                transform: translateX(-50%) scaleX(0.5);
+            }
+            100% {
+                opacity: 0;
+                transform: translateX(-50%) scaleX(2);
+            }
+        }
+        /* Control Container */
+        .control-container {
+            position: absolute;
+            bottom: 0.5rem;
+            left: 0;
+            right: 0;
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 0 1rem;
+        }
+        .speaker-icon {
+            font-size: 2.5rem;
+            color: #00C4B4;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            touch-action: manipulation;
+            min-height: 60px;
+        }
+        /* Footer */
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 0.375rem 0;
+            background: rgba(0, 0, 0, 0.7);
+            font-size: 0.75rem;
+            z-index: 1001;
+        }
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: #FFFFFF;
+            padding: 10px 20px;
+            border-radius: 10px;
+            z-index: 4000;
+            transition: opacity 0.3s;
+        }
+        /* Scoreboard Buttons */
+        #scoreboard-buttons {
+            position: absolute;
+            bottom: 2.5rem;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            gap: 0.625rem;
+            z-index: 1000;
+        }
+        #scoreboard-buttons button {
+            padding: 1rem 2.5rem;
+            font-size: 1.5rem;
+            border: 2.5px solid #00C4B4;
+            border-radius: 12.5px;
+            background-color: #008390;
+            color: #FFFFFF;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            text-transform: uppercase;
+            touch-action: manipulation;
+            min-height: 60px;
+        }
+        #scoreboard-buttons button:hover {
+            background-color: #006F7D;
+            transform: scale(1.05);
+        }
+        @media (max-width: 600px) {
+            body {
+                padding: 0.5rem;
+            }
+            #splash-screen {
+                padding-bottom: 3.75rem;
+            }
+            #splash-screen h1 {
+                font-size: 1.5rem;
+            }
+            #splash-screen p {
+                font-size: 1.2rem;
+            }
+            #splash-screen textarea {
+                font-size: 1rem;
+                width: 90%;
+                height: 100px;
+            }
+            #splash-screen button {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.8rem;
+                min-height: 48px;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .players-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            .player-section h2 {
+                font-size: 1.2rem;
+            }
+            .total-score {
+                font-size: 1rem;
+            }
+            .score-card {
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .score-card h3 {
+                font-size: 0.8rem;
+            }
+            .score-display {
+                font-size: 1.5rem;
+            }
+            .score-controls button {
+                font-size: 1.2rem;
+                padding: 0.4rem 0.8rem;
+                min-height: 48px;
+            }
+            .modal-content {
+                width: 90%;
+                padding: 1.75rem;
+            }
+            .modal-content p {
+                font-size: 1.575rem;
+            }
+            .modal-content input {
+                font-size: 1.575rem;
+                width: 157.5px;
+            }
+            .modal-content button {
+                font-size: 1.575rem;
+                padding: 0.7rem 1.4rem;
+                min-height: 75.6px;
+            }
+            .keypad-button {
+                font-size: 2.7rem;
+                min-height: 75.6px;
+            }
+            #winners-circle-cover h1 {
+                font-size: 1.5rem;
+            }
+            .category-tile {
+                min-width: 360px;
+                min-height: 180px;
+            }
+            .category-tile h3 {
+                font-size: 0.9rem;
+            }
+            .winner-reveal {
+                font-size: 1.5rem;
+                line-height: 1.2;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                word-wrap: break-word;
+                white-space: normal;
+            }
+            .sticker-box {
+                height: 18.75px;
+            }
+            .sticker-box span {
+                font-size: 0.7rem;
+            }
+            #winners-circle-cover button {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.8rem;
+                min-height: 48px;
+            }
+            #scoreboard-buttons button {
+                font-size: 1.2rem;
+                padding: 0.8rem 1.8rem;
+                min-height: 48px;
+            }
+            .control-container {
+                padding: 0 0.5rem;
+                bottom: 0.375rem;
+            }
+            .speaker-icon {
+                font-size: 2rem;
+                min-height: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Splash Screen -->
+    <div id="splash-screen">
+        <h1>BiG KiD CARDS Score Keeper</h1>
+        <p>Enter player names (one per line):</p>
+        <textarea id="player-names" rows="4" placeholder="Player 1\nPlayer 2\nPlayer 3" aria-label="Enter player names, one per line"></textarea>
+        <button onclick="startGame()">Let’s Roll!</button>
+        <div class="control-container" id="splash-control-container">
+            <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+        </div>
+    </div>
+    <!-- Main Content -->
+    <div id="main-content">
+        <h1>Scoreboard</h1>
+        <div id="players-container" class="players-grid"></div>
+        <div id="scoreboard-buttons">
+            <button id="undo-button" onclick="undoScoreChange()">Undo</button>
+            <button id="restart-button" onclick="openResetModal()">Reset</button>
+            <button id="results-button" onclick="openWinnersCircle()">Results</button>
+        </div>
+        <div class="control-container">
+            <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+        </div>
+    </div>
+    <!-- Modal for Score Input -->
+    <div id="score-modal" class="modal" role="dialog" aria-labelledby="modal-prompt">
+        <div class="modal-content">
+            <p id="modal-prompt" role="alert"></p>
+            <input type="text" id="score-input" placeholder="Enter points" aria-label="Enter score points (0-100)" readonly="readonly">
+            <div class="keypad">
+                <button class="keypad-button" aria-label="Number 7">7</button>
+                <button class="keypad-button" aria-label="Number 8">8</button>
+                <button class="keypad-button" aria-label="Number 9">9</button>
+                <button class="keypad-button" aria-label="Number 4">4</button>
+                <button class="keypad-button" aria-label="Number 5">5</button>
+                <button class="keypad-button" aria-label="Number 6">6</button>
+                <button class="keypad-button" aria-label="Number 1">1</button>
+                <button class="keypad-button" aria-label="Number 2">2</button>
+                <button class="keypad-button" aria-label="Number 3">3</button>
+                <button class="keypad-button back" aria-label="Backspace">←</button>
+                <button class="keypad-button" aria-label="Number 0">0</button>
+                <button class="keypad-button clear" aria-label="Clear">Clear</button>
+            </div>
+            <div>
+                <button class="submit" onclick="submitScoreChange()" aria-label="Submit score change">Submit</button>
+                <button class="cancel" onclick="closeModal()" aria-label="Cancel score change">Cancel</button>
+            </div>
+        </div>
+    </div>
+    <!-- Winners Circle Cover -->
+    <div id="winners-circle-cover">
+        <h1 id="winners-title">Winner's Circle</h1>
+        <div class="license-plates" id="license-plates"></div>
+        <div id="winners-buttons">
+            <button id="rematch-button" onclick="rematchGame()">Rematch</button>
+            <button id="reset-button" onclick="resetGame()">Reset</button>
+        </div>
+        <div class="control-container" id="winner-control-container">
+            <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+        </div>
+    </div>
+    <!-- Reset Confirmation Modal -->
+    <div id="reset-modal" class="modal" role="dialog" aria-labelledby="reset-prompt">
+        <div class="modal-content">
+            <p id="reset-prompt">Reset?</p>
+            <div>
+                <button class="submit" onclick="resetNames()" aria-label="Reset names">Names</button>
+                <button class="cancel" onclick="resetScores()" aria-label="Reset scores">Score</button>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="footer">
+        &copy; 2025 BiG KiD CARDS. All rights reserved.
+    </footer>
+    <!-- Audio for Sound Effects -->
+    <audio id="start-sound" src="start.mp3" preload="auto"></audio>
+    <audio id="revving-sound-1" src="revving1.mp3" preload="auto"></audio>
+    <audio id="revving-sound-2" src="revving2.mp3" preload="auto"></audio>
+    <audio id="revving-sound-3" src="revving3.mp3" preload="auto"></audio>
+    <audio id="revving-sound-4" src="revving4.mp3" preload="auto"></audio>
+    <audio id="revving-sound-5" src="revving5.mp3" preload="auto"></audio>
+    <audio id="screech-sound-1" src="screech1.mp3" preload="auto"></audio>
+    <audio id="screech-sound-2" src="screech2.mp3" preload="auto"></audio>
+    <audio id="screech-sound-3" src="screech3.mp3" preload="auto"></audio>
+    <audio id="screech-sound-4" src="screech4.mp3" preload="auto"></audio>
+    <audio id="screech-sound-5" src="screech5.mp3" preload="auto"></audio>
+    <script>
+        // Object to store scores and history
+        let scores = JSON.parse(localStorage.getItem('scores')) || {};
+        let playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
+        let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory')) || [];
+        let isMuted = localStorage.getItem('isMuted') === 'true';
+        let currentPlayer, currentCategory, currentDirection;
+        let lastToastTime = 0;
+        // Custom Keypad Event Listeners
+        const keypadButtons = document.querySelectorAll('.keypad-button');
+        keypadButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = document.getElementById('score-input');
+                if (btn.classList.contains('clear')) {
+                    input.value = '';
+                } else if (btn.classList.contains('back')) {
+                    input.value = input.value.slice(0, -1);
+                } else {
+                    input.value += btn.textContent;
+                }
+            });
+        });
+        function showToast(message) {
+            const now = Date.now();
+            if (now - lastToastTime < 1000) return;
+            lastToastTime = now;
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.setAttribute('aria-live', 'polite');
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+        function playSound(soundId) {
+            const sound = document.getElementById(soundId);
+            if (!sound) {
+                console.warn(`Sound ${soundId} not found`);
+                showToast('Audio file missing.');
+                return;
+            }
+            sound.volume = isMuted ? 0 : 1;
+            sound.play().catch(error => {
+                console.log(`Audio play failed for ${soundId}:`, error);
+                showToast('Audio playback failed.');
+            });
+        }
+        function sanitizeName(name) {
+            return name.replace(/[<>&"]/g, '').trim().slice(0, 20);
+        }
+        function startGame() {
+            const namesInput = document.getElementById('player-names').value.trim();
+            playerNames = namesInput.split('\n').map(sanitizeName).filter(name => name !== '');
+            playerNames = [...new Set(playerNames)];
+            if (playerNames.length < 1) {
+                alert('Please enter at least one player name.');
+                return;
+            }
+            if (playerNames.length > 10) {
+                alert('Maximum 10 players allowed.');
+                playerNames = playerNames.slice(0, 10);
+            }
+            playSound('start-sound');
+            setTimeout(() => {
+                document.getElementById('splash-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                window.scrollTo(0, 0);
+            }, 1000);
+            const playersContainer = document.getElementById('players-container');
+            playersContainer.innerHTML = '';
+            const fragment = document.createDocumentFragment();
+            playerNames.forEach((name, index) => {
+                const playerId = `player-${index}`;
+                if (!scores[playerId]) {
+                    scores[playerId] = {
+                        'power-knowledge': 0,
+                        'handling-traction': 0,
+                        'reliability': 0,
+                        'speed': 0,
+                        'coolness': 0
+                    };
+                }
+                const playerSection = document.createElement('div');
+                playerSection.className = 'player-section';
+                playerSection.innerHTML = `<div class="player-header">
+                    <h2>${name}</h2>
+                    <div class="total-score" id="${playerId}-total-score" aria-live="polite">Total: ${calculateTotal(playerId)}</div>
+                </div>
+                <div class="score-container">
+                    <div class="score-card" id="${playerId}-power-knowledge-card">
+                        <h3>Power/Knowledge</h3>
+                        <div class="score-display" id="${playerId}-power-knowledge-score" aria-live="polite">${scores[playerId]['power-knowledge']}</div>
+                        <div class="score-controls">
+                            <button class="minus" onclick="openModal('${playerId}', 'power-knowledge', -1)">-</button>
+                            <button class="plus" onclick="openModal('${playerId}', 'power-knowledge', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="score-card" id="${playerId}-handling-traction-card">
+                        <h3>Handling/Traction</h3>
+                        <div class="score-display" id="${playerId}-handling-traction-score" aria-live="polite">${scores[playerId]['handling-traction']}</div>
+                        <div class="score-controls">
+                            <button class="minus" onclick="openModal('${playerId}', 'handling-traction', -1)">-</button>
+                            <button class="plus" onclick="openModal('${playerId}', 'handling-traction', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="score-card" id="${playerId}-reliability-card">
+                        <h3>Reliability</h3>
+                        <div class="score-display" id="${playerId}-reliability-score" aria-live="polite">${scores[playerId]['reliability']}</div>
+                        <div class="score-controls">
+                            <button class="minus" onclick="openModal('${playerId}', 'reliability', -1)">-</button>
+                            <button class="plus" onclick="openModal('${playerId}', 'reliability', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="score-card" id="${playerId}-speed-card">
+                        <h3>Speed</h3>
+                        <div class="score-display" id="${playerId}-speed-score" aria-live="polite">${scores[playerId]['speed']}</div>
+                        <div class="score-controls">
+                            <button class="minus" onclick="openModal('${playerId}', 'speed', -1)">-</button>
+                            <button class="plus" onclick="openModal('${playerId}', 'speed', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="score-card" id="${playerId}-coolness-card">
+                        <h3>Coolness</h3>
+                        <div class="score-display" id="${playerId}-coolness-score" aria-live="polite">${scores[playerId]['coolness']}</div>
+                        <div class="score-controls">
+                            <button class="minus" onclick="openModal('${playerId}', 'coolness', -1)">-</button>
+                            <button class="plus" onclick="openModal('${playerId}', 'coolness', 1)">+</button>
+                        </div>
+                    </div>
+                </div>`;
+                fragment.appendChild(playerSection);
+            });
+            playersContainer.appendChild(fragment);
+            localStorage.setItem('playerNames', JSON.stringify(playerNames));
+            saveScores();
+        }
+        function openModal(player, category, direction) {
+            currentPlayer = player;
+            currentCategory = category;
+            currentDirection = direction;
+            const action = direction > 0 ? 'add to' : 'subtract from';
+            document.getElementById('modal-prompt').textContent = `Enter points (0-100) to ${action} ${category.replace('-', ' ')} for ${playerNames[parseInt(player.split('-')[1])]}`;
+            document.getElementById('score-input').value = '';
+            const modal = document.getElementById('score-modal');
+            modal.style.display = 'flex';
+            trapFocus(modal);
+        }
+        function closeModal() {
+            document.getElementById('score-modal').style.display = 'none';
+        }
+        function submitScoreChange() {
+            const input = document.getElementById('score-input').value;
+            const change = parseInt(input) * currentDirection;
+            if (isNaN(change)) {
+                alert('Please enter a valid number.');
+                closeModal();
+                return;
+            }
+            const newScore = scores[currentPlayer][currentCategory] + change;
+            if (newScore < 0) {
+                scores[currentPlayer][currentCategory] = 0;
+            } else if (newScore > 100) {
+                alert('Score cannot exceed 100.');
+                scores[currentPlayer][currentCategory] = 100;
+            } else {
+                scoreHistory.push({
+                    player: currentPlayer,
+                    category: currentCategory,
+                    previousScore: scores[currentPlayer][currentCategory],
+                    newScore: newScore
+                });
+                scores[currentPlayer][currentCategory] = newScore;
+            }
+            document.getElementById(`${currentPlayer}-${currentCategory}-score`).textContent = scores[currentPlayer][currentCategory];
+            document.getElementById(`${currentPlayer}-total-score`).textContent = `Total: ${calculateTotal(currentPlayer)}`;
+            saveScores();
+            localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
+            const modalContent = document.querySelector('#score-modal .modal-content');
+            const soundGroup = currentDirection > 0 ? ['revving-sound-1', 'revving-sound-2', 'revving-sound-3', 'revving-sound-4', 'revving-sound-5'] : ['screech-sound-1', 'screech-sound-2', 'screech-sound-3', 'screech-sound-4', 'screech-sound-5'];
+            playSound(soundGroup[Math.floor(Math.random() * soundGroup.length)]);
+            if (currentDirection > 0) {
+                const smoke = document.createElement('div');
+                smoke.className = 'exhaust-smoke';
+                modalContent.appendChild(smoke);
+                setTimeout(() => smoke.remove(), 500);
+            } else {
+                const marks = document.createElement('div');
+                marks.className = 'tire-marks';
+                modalContent.appendChild(marks);
+                setTimeout(() => marks.remove(), 500);
+            }
+            closeModal();
+        }
+        document.getElementById('score-input').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                submitScoreChange();
+            }
+        });
+        function undoScoreChange() {
+            if (scoreHistory.length === 0) {
+                showToast('No actions to undo.');
+                return;
+            }
+            playSound('screech-sound-1');
+            const lastChange = scoreHistory.pop();
+            scores[lastChange.player][lastChange.category] = lastChange.previousScore;
+            document.getElementById(`${lastChange.player}-${lastChange.category}-score`).textContent = lastChange.previousScore;
+            document.getElementById(`${lastChange.player}-total-score`).textContent = `Total: ${calculateTotal(lastChange.player)}`;
+            saveScores();
+            localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
+            showToast('Score change undone.');
+        }
+        function calculateTotal(playerId) {
+            return Object.values(scores[playerId]).reduce((sum, score) => sum + score, 0);
+        }
+        function saveScores() {
+            localStorage.setItem('scores', JSON.stringify(scores));
+        }
+        async function openWinnersCircle() {
+            if (playerNames.length === 0) {
+                showToast('No players to display winners.');
+                return;
+            }
+            const cover = document.getElementById('winners-circle-cover');
+            if (!cover) {
+                console.error('Winners Circle cover not found');
+                return;
+            }
+            cover.style.display = 'flex';
+            document.getElementById('main-content').style.display = 'none';
+            const title = document.getElementById('winners-title');
+            if (!title) {
+                console.error('Winners title not found');
+                return;
+            }
+            const licensePlates = document.getElementById('license-plates');
+            if (!licensePlates) {
+                console.error('License plates container not found');
+                return;
+            }
+            licensePlates.innerHTML = '';
+            const titleText = "Winner's Circle";
+            title.style.opacity = 0;
+            title.textContent = '';
+            for (let i = 0; i < titleText.length; i++) {
+                title.textContent += titleText[i];
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            title.style.opacity = 1;
+            const categories = ['power-knowledge', 'handling-traction', 'reliability', 'speed', 'coolness'];
+            const now = new Date();
+            const month = now.toLocaleString('default', { month: 'short' }).toUpperCase();
+            const year = now.getFullYear().toString().slice(-2);
+            for (let category of categories) {
+                let maxScore = -Infinity;
+                let winnerNames = [];
+                for (let playerId in scores) {
+                    const score = scores[playerId][category];
+                    if (score > maxScore) {
+                        maxScore = score;
+                        winnerNames = [playerNames[parseInt(playerId.split('-')[1])]];
+                    } else if (score === maxScore) {
+                        winnerNames.push(playerNames[parseInt(playerId.split('-')[1])]);
+                    }
+                }
+                const plate = document.createElement('div');
+                plate.className = 'category-tile';
+                plate.innerHTML = `<h3>${category.replace('-', '/')}</h3><div class="winner-reveal" id="winner-${category}"></div><div class="sticker-boxes"><div class="sticker-box"><span>${month}</span></div><div class="sticker-box"><span>Nashville</span></div><div class="sticker-box"><span>${year}</span></div></div>`;
+                licensePlates.appendChild(plate);
+                const reveal = document.getElementById(`winner-${category}`);
+                if (winnerNames.length > 0) {
+                    if (winnerNames.length > 1) {
+                        const tieText = winnerNames.map(name => name.slice(0, 3).toUpperCase()).join('/');
+                        reveal.textContent = `${tieText} ★ ${maxScore} PNTS`;
+                    } else {
+                        reveal.textContent = `${winnerNames[0]} ★ ${maxScore} PNTS`;
+                    }
+                } else {
+                    reveal.textContent = 'No Winner';
+                }
+                plate.classList.add('active');
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }
+        function rematchGame() {
+            for (let player in scores) {
+                for (let category in scores[player]) {
+                    scores[player][category] = 0;
+                    document.getElementById(`${player}-${category}-score`).textContent = 0;
+                }
+                document.getElementById(`${player}-total-score`).textContent = `Total: 0`;
+            }
+            scoreHistory = [];
+            saveScores();
+            localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
+            document.getElementById('winners-circle-cover').style.display = 'none';
+            document.getElementById('main-content').style.display = 'block';
+        }
+        function resetGame() {
+            scores = {};
+            playerNames = [];
+            scoreHistory = [];
+            localStorage.clear();
+            document.getElementById('winners-circle-cover').style.display = 'none';
+            document.getElementById('splash-screen').style.display = 'flex';
+            document.getElementById('main-content').style.display = 'none';
+        }
+        function openResetModal() {
+            const modal = document.getElementById('reset-modal');
+            modal.style.display = 'flex';
+            trapFocus(modal);
+        }
+        function resetNames() {
+            scores = {};
+            playerNames = [];
+            scoreHistory = [];
+            localStorage.clear();
+            document.getElementById('reset-modal').style.display = 'none';
+            document.getElementById('splash-screen').style.display = 'flex';
+            document.getElementById('main-content').style.display = 'none';
+        }
+        function resetScores() {
+            for (let player in scores) {
+                for (let category in scores[player]) {
+                    scores[player][category] = 0;
+                    document.getElementById(`${player}-${category}-score`).textContent = 0;
+                }
+                document.getElementById(`${player}-total-score`).textContent = `Total: 0`;
+            }
+            scoreHistory = [];
+            saveScores();
+            localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
+            document.getElementById('reset-modal').style.display = 'none';
+        }
+        function toggleMute() {
+            isMuted = !isMuted;
+            const speakerIcons = document.querySelectorAll('.speaker-icon');
+            speakerIcons.forEach(icon => {
+                icon.textContent = isMuted ? '🔇' : '🔊';
+            });
+            localStorage.setItem('isMuted', isMuted);
+            const audioElements = document.querySelectorAll('audio');
+            audioElements.forEach(audio => audio.volume = isMuted ? 0 : 1);
+        }
+        function trapFocus(modal) {
+            const focusableElements = modal.querySelectorAll('button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
+            const firstElement = focusableElements[0];
+            const lastElement = focusableElements[focusableElements.length - 1];
+            modal.addEventListener('keydown', function trapKeydown(e) {
+                if (e.key === 'Tab') {
+                    if (e.shiftKey && document.activeElement === firstElement) {
+                        e.preventDefault();
+                        lastElement.focus();
+                    } else if (!e.shiftKey && document.activeElement === lastElement) {
+                        e.preventDefault();
+                        firstElement.focus();
+                    }
+                }
+            });
+            modal.addEventListener('focusout', function restoreTrap(e) {
+                if (!modal.contains(e.relatedTarget)) {
+                    firstElement.focus();
+                }
+            });
+        }
+        window.onload = function() {
+            isMuted = localStorage.getItem('isMuted') === 'true';
+            const speakerIcons = document.querySelectorAll('.speaker-icon');
+            speakerIcons.forEach(icon => {
+                icon.textContent = isMuted ? '🔇' : '🔊';
+            });
+            const audioElements = document.querySelectorAll('audio');
+            audioElements.forEach(audio => audio.volume = isMuted ? 0 : 1);
+            if (Object.keys(scores).length > 0) {
+                document.getElementById('splash-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                window.scrollTo(0, 0);
+                const playersContainer = document.getElementById('players-container');
+                playersContainer.innerHTML = '';
+                const fragment = document.createDocumentFragment();
+                for (let playerId in scores) {
+                    const index = parseInt(playerId.split('-')[1]);
+                    playerNames[index] = playerNames[index] || `Player ${index + 1}`;
+                    const playerSection = document.createElement('div');
+                    playerSection.className = 'player-section';
+                    playerSection.innerHTML = `<div class="player-header">
+                        <h2>${playerNames[index]}</h2>
+                        <div class="total-score" id="${playerId}-total-score" aria-live="polite">Total: ${calculateTotal(playerId)}</div>
+                    </div>
+                    <div class="score-container">
+                        <div class="score-card" id="${playerId}-power-knowledge-card">
+                            <h3>Power/Knowledge</h3>
+                            <div class="score-display" id="${playerId}-power-knowledge-score" aria-live="polite">${scores[playerId]['power-knowledge']}</div>
+                            <div class="score-controls">
+                                <button class="minus" onclick="openModal('${playerId}', 'power-knowledge', -1)">-</button>
+                                <button class="plus" onclick="openModal('${playerId}', 'power-knowledge', 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="score-card" id="${playerId}-handling-traction-card">
+                            <h3>Handling/Traction</h3>
+                            <div class="score-display" id="${playerId}-handling-traction-score" aria-live="polite">${scores[playerId]['handling-traction']}</div>
+                            <div class="score-controls">
+                                <button class="minus" onclick="openModal('${playerId}', 'handling-traction', -1)">-</button>
+                                <button class="plus" onclick="openModal('${playerId}', 'handling-traction', 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="score-card" id="${playerId}-reliability-card">
+                            <h3>Reliability</h3>
+                            <div class="score-display" id="${playerId}-reliability-score" aria-live="polite">${scores[playerId]['reliability']}</div>
+                            <div class="score-controls">
+                                <button class="minus" onclick="openModal('${playerId}', 'reliability', -1)">-</button>
+                                <button class="plus" onclick="openModal('${playerId}', 'reliability', 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="score-card" id="${playerId}-speed-card">
+                            <h3>Speed</h3>
+                            <div class="score-display" id="${playerId}-speed-score" aria-live="polite">${scores[playerId]['speed']}</div>
+                            <div class="score-controls">
+                                <button class="minus" onclick="openModal('${playerId}', 'speed', -1)">-</button>
+                                <button class="plus" onclick="openModal('${playerId}', 'speed', 1)">+</button>
+                            </div>
+                        </div>
+                        <div class="score-card" id="${playerId}-coolness-card">
+                            <h3>Coolness</h3>
+                            <div class="score-display" id="${playerId}-coolness-score" aria-live="polite">${scores[playerId]['coolness']}</div>
+                            <div class="score-controls">
+                                <button class="minus" onclick="openModal('${playerId}', 'coolness', -1)">-</button>
+                                <button class="plus" onclick="openModal('${playerId}', 'coolness', 1)">+</button>
+                            </div>
+                        </div>
+                    </div>`;
+                    fragment.appendChild(playerSection);
+                }
+                playersContainer.appendChild(fragment);
+            }
+        };
+    </script>
+</body>
+</html>
