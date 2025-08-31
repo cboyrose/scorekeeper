@@ -23,26 +23,6 @@
             overflow-x: hidden;
             transition: background 0.3s;
         }
-        /* iPhone-specific scaling */
-        @media only screen and (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 896px) {
-            .content-wrapper {
-                transform: scale(0.792);
-                transform-origin: top left;
-                width: 126.26%;
-                height: 126.26%;
-            }
-            .screen-content {
-                transform: scale(0.88);
-                transform-origin: center;
-            }
-            .player-section {
-                transform: scale(0.99);
-                transform-origin: center;
-            }
-            body {
-                overflow: auto;
-            }
-        }
         .screen-content {
             display: flex;
             flex-direction: column;
@@ -59,10 +39,6 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Start.jpg') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             z-index: 2000;
             text-shadow: 1.6px 1.6px 3.2px rgba(0, 0, 0, 0.5);
             padding-bottom: 2.4rem;
@@ -122,108 +98,95 @@
             flex-grow: 1;
             flex-direction: column;
             position: relative;
-            padding-bottom: 4.5rem;
-            overflow-y: auto;
+            padding-bottom: 4rem;
         }
         h1 {
             color: #00C4B4;
-            margin-bottom: 1.65rem;
+            margin-bottom: 1.5rem;
             text-align: center;
             text-transform: uppercase;
-            font-size: 2.2rem;
-            text-shadow: 2.2px 2.2px 4.4px rgba(0, 0, 0, 0.5);
+            font-size: 2rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             background: rgba(0, 0, 0, 0.7);
-            padding: 0.55rem 1.1rem;
-            border-radius: 11px;
+            padding: 0.5rem 1rem;
+            border-radius: 10px;
         }
         .players-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.65rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
             width: 100%;
             flex-grow: 1;
         }
         .player-section {
-            margin-bottom: 1.65rem;
+            margin-bottom: 1.5rem;
             text-align: center;
-            flex: 0 0 330px;
         }
         .player-header {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1.1rem;
-            margin-bottom: 1.1rem;
+            gap: 1rem;
+            margin-bottom: 1rem;
             background: rgba(0, 0, 0, 0.7);
-            padding: 0.55rem;
-            border-radius: 11px;
+            padding: 0.5rem;
+            border-radius: 10px;
         }
         .player-section h2 {
             color: #008390;
-            font-size: 1.65rem;
+            font-size: 1.5rem;
             text-transform: uppercase;
-            text-shadow: 1.1px 1.1px 3.3px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
         }
         .total-score {
-            font-size: 1.32rem;
+            font-size: 1.2rem;
             color: #00C4B4;
             font-weight: bold;
-            text-shadow: 1.1px 1.1px 2.2px rgba(0, 0, 0, 0.5);
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         .score-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(60.5px, 1fr));
-            gap: 1.1rem;
-            width: 90vw;
-            margin: 0 auto;
-            padding-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            flex-wrap: wrap;
         }
         .score-card {
             background: rgba(0, 95, 107, 0.8);
-            border: 2.2px solid #00C4B4;
-            border-radius: 11px;
-            box-shadow: 0 4.4px 8.8px rgba(0, 0, 0, 0.5);
-            padding: 1.65rem;
+            border: 2px solid #00C4B4;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 250px;
             text-align: center;
             position: relative;
-            aspect-ratio: 1 / 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            cursor: pointer;
         }
         .score-card h3 {
-            font-size: 1.21rem;
+            font-size: 1.1rem;
             color: #FFFFFF;
-            margin-bottom: 0.55rem;
+            margin-bottom: 0.5rem;
             text-transform: uppercase;
             white-space: nowrap;
         }
         .score-display {
-            font-size: 2.2rem;
+            font-size: 2rem;
             color: #00C4B4;
-            margin: 0.55rem 0;
+            margin: 0.5rem 0;
             font-weight: bold;
-            text-shadow: 1.1px 1.1px 2.2px rgba(0, 0, 0, 0.5);
-        }
-        .score-controls {
-            display: flex;
-            justify-content: center;
-            gap: 0.55rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         .score-controls button {
-            padding: 0.55rem;
-            font-size: 1.65rem;
-            border: 2.2px solid #00C4B4;
-            border-radius: 11px;
+            padding: 0.5rem 1rem;
+            font-size: 1.5rem;
+            border: 2px solid #00C4B4;
+            border-radius: 10px;
             cursor: pointer;
-            width: 48px;
-            height: 48px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin: 0 0.5rem;
             transition: background-color 0.2s, transform 0.2s;
             touch-action: manipulation;
+            min-height: 48px;
         }
         .score-controls .plus {
             background-color: #008390;
@@ -293,12 +256,20 @@
             touch-action: manipulation;
             min-height: 84px;
         }
-        .modal-content .submit {
+        .modal-content .add {
             background-color: #008390;
             color: #FFFFFF;
         }
-        .modal-content .submit:hover {
+        .modal-content .add:hover {
             background-color: #006F7D;
+            transform: scale(1.05);
+        }
+        .modal-content .subtract {
+            background-color: #005F6B;
+            color: #00C4B4;
+        }
+        .modal-content .subtract:hover {
+            background-color: #004D58;
             transform: scale(1.05);
         }
         .modal-content .cancel {
@@ -893,7 +864,9 @@
                 <button class="keypad-button clear" aria-label="Clear">Clear</button>
             </div>
             <div>
-                <button class="submit" onclick="submitScoreChange()" aria-label="Submit score change">Submit</button>
+                <button class="add" onclick="applyScoreChange(1)">Add</button>
+                <button class="subtract" onclick="applyScoreChange(-1)">Subtract</button>
+                <button class="cancel" onclick="closeModal()">Cancel</button>
             </div>
         </div>
     </div>
@@ -924,12 +897,14 @@
     <audio id="screech-sound-4" src="screech4.mp3" preload="auto"></audio>
     <audio id="screech-sound-5" src="screech5.mp3" preload="auto"></audio>
     <script>
+        // Object to store scores and history
         let scores = JSON.parse(localStorage.getItem('scores')) || {};
         let playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
         let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory')) || [];
         let isMuted = localStorage.getItem('isMuted') === 'true';
-        let currentPlayer, currentCategory, currentDirection;
+        let currentPlayer, currentCategory;
         let lastToastTime = 0;
+        // Custom Keypad Event Listeners
         const keypadButtons = document.querySelectorAll('.keypad-button');
         keypadButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1012,45 +987,25 @@
                     <div class="total-score" id="${playerId}-total-score" aria-live="polite">Total: ${calculateTotal(playerId)}</div>
                 </div>
                 <div class="score-container">
-                    <div class="score-card" id="${playerId}-power-knowledge-card">
+                    <div class="score-card" onclick="openModal('${playerId}', 'power-knowledge')" id="${playerId}-power-knowledge-card">
                         <h3>Power/Knowledge</h3>
                         <div class="score-display" id="${playerId}-power-knowledge-score" aria-live="polite">${scores[playerId]['power-knowledge']}</div>
-                        <div class="score-controls">
-                            <button class="minus" onclick="openModal('${playerId}', 'power-knowledge', -1)">-</button>
-                            <button class="plus" onclick="openModal('${playerId}', 'power-knowledge', 1)">+</button>
-                        </div>
                     </div>
-                    <div class="score-card" id="${playerId}-handling-traction-card">
+                    <div class="score-card" onclick="openModal('${playerId}', 'handling-traction')" id="${playerId}-handling-traction-card">
                         <h3>Handling/Traction</h3>
                         <div class="score-display" id="${playerId}-handling-traction-score" aria-live="polite">${scores[playerId]['handling-traction']}</div>
-                        <div class="score-controls">
-                            <button class="minus" onclick="openModal('${playerId}', 'handling-traction', -1)">-</button>
-                            <button class="plus" onclick="openModal('${playerId}', 'handling-traction', 1)">+</button>
-                        </div>
                     </div>
-                    <div class="score-card" id="${playerId}-reliability-card">
+                    <div class="score-card" onclick="openModal('${playerId}', 'reliability')" id="${playerId}-reliability-card">
                         <h3>Reliability</h3>
                         <div class="score-display" id="${playerId}-reliability-score" aria-live="polite">${scores[playerId]['reliability']}</div>
-                        <div class="score-controls">
-                            <button class="minus" onclick="openModal('${playerId}', 'reliability', -1)">-</button>
-                            <button class="plus" onclick="openModal('${playerId}', 'reliability', 1)">+</button>
-                        </div>
                     </div>
-                    <div class="score-card" id="${playerId}-speed-card">
+                    <div class="score-card" onclick="openModal('${playerId}', 'speed')" id="${playerId}-speed-card">
                         <h3>Speed</h3>
                         <div class="score-display" id="${playerId}-speed-score" aria-live="polite">${scores[playerId]['speed']}</div>
-                        <div class="score-controls">
-                            <button class="minus" onclick="openModal('${playerId}', 'speed', -1)">-</button>
-                            <button class="plus" onclick="openModal('${playerId}', 'speed', 1)">+</button>
-                        </div>
                     </div>
-                    <div class="score-card" id="${playerId}-coolness-card">
+                    <div class="score-card" onclick="openModal('${playerId}', 'coolness')" id="${playerId}-coolness-card">
                         <h3>Coolness</h3>
                         <div class="score-display" id="${playerId}-coolness-score" aria-live="polite">${scores[playerId]['coolness']}</div>
-                        <div class="score-controls">
-                            <button class="minus" onclick="openModal('${playerId}', 'coolness', -1)">-</button>
-                            <button class="plus" onclick="openModal('${playerId}', 'coolness', 1)">+</button>
-                        </div>
                     </div>
                 </div>`;
                 fragment.appendChild(playerSection);
@@ -1059,12 +1014,10 @@
             localStorage.setItem('playerNames', JSON.stringify(playerNames));
             saveScores();
         }
-        function openModal(player, category, direction) {
+        function openModal(player, category) {
             currentPlayer = player;
             currentCategory = category;
-            currentDirection = direction;
-            const action = direction > 0 ? 'add to' : 'subtract from';
-            document.getElementById('modal-prompt').textContent = `Enter points (0-100) to ${action} ${category.replace('-', ' ')} for ${playerNames[parseInt(player.split('-')[1])]}`;
+            document.getElementById('modal-prompt').textContent = `Enter points (0-100) for ${category.replace('-', ' ')} for ${playerNames[parseInt(player.split('-')[1])]}`;
             document.getElementById('score-input').value = '';
             const modal = document.getElementById('score-modal');
             modal.style.display = 'flex';
@@ -1073,12 +1026,11 @@
         function closeModal() {
             document.getElementById('score-modal').style.display = 'none';
         }
-        function submitScoreChange() {
+        function applyScoreChange(direction) {
             const input = document.getElementById('score-input').value;
-            const change = parseInt(input) * currentDirection;
+            const change = parseInt(input) * direction;
             if (isNaN(change)) {
                 alert('Please enter a valid number.');
-                closeModal();
                 return;
             }
             const newScore = scores[currentPlayer][currentCategory] + change;
@@ -1101,9 +1053,9 @@
             saveScores();
             localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
             const modalContent = document.querySelector('#score-modal .modal-content');
-            const soundGroup = currentDirection > 0 ? ['revving-sound-1', 'revving-sound-2', 'revving-sound-3', 'revving-sound-4', 'revving-sound-5'] : ['screech-sound-1', 'screech-sound-2', 'screech-sound-3', 'screech-sound-4', 'screech-sound-5'];
+            const soundGroup = direction > 0 ? ['revving-sound-1', 'revving-sound-2', 'revving-sound-3', 'revving-sound-4', 'revving-sound-5'] : ['screech-sound-1', 'screech-sound-2', 'screech-sound-3', 'screech-sound-4', 'screech-sound-5'];
             playSound(soundGroup[Math.floor(Math.random() * soundGroup.length)]);
-            if (currentDirection > 0) {
+            if (direction > 0) {
                 const smoke = document.createElement('div');
                 smoke.className = 'exhaust-smoke';
                 modalContent.appendChild(smoke);
@@ -1114,11 +1066,11 @@
                 modalContent.appendChild(marks);
                 setTimeout(() => marks.remove(), 500);
             }
-            closeModal();
+            document.getElementById('score-input').value = '';
         }
         document.getElementById('score-input').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                submitScoreChange();
+                // Optionally handle enter if needed, but since no submit, perhaps do nothing or default to add
             }
         });
         function undoScoreChange() {
@@ -1184,7 +1136,7 @@
                     if (score > maxScore) {
                         maxScore = score;
                         winnerNames = [playerNames[parseInt(playerId.split('-')[1])]];
-                    } else if (score == maxScore) {
+                    } else if (score === maxScore) {
                         winnerNames.push(playerNames[parseInt(playerId.split('-')[1])]);
                     }
                 }
@@ -1313,45 +1265,25 @@
                         <div class="total-score" id="${playerId}-total-score" aria-live="polite">Total: ${calculateTotal(playerId)}</div>
                     </div>
                     <div class="score-container">
-                        <div class="score-card" id="${playerId}-power-knowledge-card">
+                        <div class="score-card" onclick="openModal('${playerId}', 'power-knowledge')" id="${playerId}-power-knowledge-card">
                             <h3>Power/Knowledge</h3>
                             <div class="score-display" id="${playerId}-power-knowledge-score" aria-live="polite">${scores[playerId]['power-knowledge']}</div>
-                            <div class="score-controls">
-                                <button class="minus" onclick="openModal('${playerId}', 'power-knowledge', -1)">-</button>
-                                <button class="plus" onclick="openModal('${playerId}', 'power-knowledge', 1)">+</button>
-                            </div>
                         </div>
-                        <div class="score-card" id="${playerId}-handling-traction-card">
+                        <div class="score-card" onclick="openModal('${playerId}', 'handling-traction')" id="${playerId}-handling-traction-card">
                             <h3>Handling/Traction</h3>
                             <div class="score-display" id="${playerId}-handling-traction-score" aria-live="polite">${scores[playerId]['handling-traction']}</div>
-                            <div class="score-controls">
-                                <button class="minus" onclick="openModal('${playerId}', 'handling-traction', -1)">-</button>
-                                <button class="plus" onclick="openModal('${playerId}', 'handling-traction', 1)">+</button>
-                            </div>
                         </div>
-                        <div class="score-card" id="${playerId}-reliability-card">
+                        <div class="score-card" onclick="openModal('${playerId}', 'reliability')" id="${playerId}-reliability-card">
                             <h3>Reliability</h3>
                             <div class="score-display" id="${playerId}-reliability-score" aria-live="polite">${scores[playerId]['reliability']}</div>
-                            <div class="score-controls">
-                                <button class="minus" onclick="openModal('${playerId}', 'reliability', -1)">-</button>
-                                <button class="plus" onclick="openModal('${playerId}', 'reliability', 1)">+</button>
-                            </div>
                         </div>
-                        <div class="score-card" id="${playerId}-speed-card">
+                        <div class="score-card" onclick="openModal('${playerId}', 'speed')" id="${playerId}-speed-card">
                             <h3>Speed</h3>
                             <div class="score-display" id="${playerId}-speed-score" aria-live="polite">${scores[playerId]['speed']}</div>
-                            <div class="score-controls">
-                                <button class="minus" onclick="openModal('${playerId}', 'speed', -1)">-</button>
-                                <button class="plus" onclick="openModal('${playerId}', 'speed', 1)">+</button>
-                            </div>
                         </div>
-                        <div class="score-card" id="${playerId}-coolness-card">
+                        <div class="score-card" onclick="openModal('${playerId}', 'coolness')" id="${playerId}-coolness-card">
                             <h3>Coolness</h3>
                             <div class="score-display" id="${playerId}-coolness-score" aria-live="polite">${scores[playerId]['coolness']}</div>
-                            <div class="score-controls">
-                                <button class="minus" onclick="openModal('${playerId}', 'coolness', -1)">-</button>
-                                <button class="plus" onclick="openModal('${playerId}', 'coolness', 1)">+</button>
-                            </div>
                         </div>
                     </div>`;
                     fragment.appendChild(playerSection);
