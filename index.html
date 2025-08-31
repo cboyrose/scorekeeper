@@ -55,12 +55,7 @@
         @media (min-width: 768px) and (max-width: 1024px) {
             .keypad {
                 gap: 0.5rem;
-                max-width: 350px;
-            }
-            .keypad-button {
-                font-size: 1.8rem;
-                min-height: 64px;
-                min-width: 64px;
+                max-width: 200px;
             }
         }
         /* Splash Screen */
@@ -179,25 +174,26 @@
         }
         .score-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 1rem;
             width: 100%;
             padding-bottom: 2rem;
         }
         .score-card {
             background: #FFFFFF;
-            box-shadow: inset 0 0 6px #000000;
-            border-radius: 10px;
+            border: 6px solid #000000;
+            border-radius: 4px;
             padding: 1.5rem;
             width: 100%;
-            max-width: 300px;
+            max-width: 400px;
+            min-height: 250px;
             text-align: center;
             position: relative;
             cursor: pointer;
-            aspect-ratio: 18 / 24;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
         .score-card h3 {
             font-size: 1.2rem;
@@ -206,14 +202,17 @@
             text-transform: uppercase;
             white-space: normal;
             line-height: 1.2;
-            max-height: 2.88em;
-            overflow: hidden;
+            overflow: visible;
         }
         .score-display {
-            font-size: 3rem;
+            font-size: 6rem;
             color: #000000;
             margin: 0.5rem 0;
             font-weight: bold;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         /* Modal Styles */
         .modal {
@@ -299,14 +298,15 @@
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+            gap: 10px;
             margin-top: 1.75rem;
             margin-bottom: 1.75rem;
-            max-width: 300px;
+            max-width: 200px;
         }
         .keypad-button {
-            padding: 0.5rem;
-            font-size: 1.2rem;
+            width: 60px;
+            height: 60px;
+            font-size: 1.5rem;
             background-color: #008390;
             color: #FFFFFF;
             border: 2px solid #00C4B4;
@@ -314,8 +314,6 @@
             cursor: pointer;
             transition: background-color 0.2s;
             touch-action: manipulation;
-            min-height: 44px;
-            min-width: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -514,17 +512,22 @@
             margin-bottom: 1rem;
             text-transform: uppercase;
         }
+        #reset-modal .modal-content .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
         #reset-modal .modal-content button {
             padding: 0.5rem 1rem;
             font-size: 1rem;
             border: 2px solid #00C4B4;
             border-radius: 10px;
             cursor: pointer;
-            margin: 0 0.5rem;
             transition: background-color 0.2s, transform 0.2s;
             text-transform: uppercase;
             touch-action: manipulation;
             min-height: 48px;
+            width: 80px;
         }
         #reset-modal .modal-content .submit {
             background-color: #008390;
@@ -720,14 +723,14 @@
             .score-card {
                 padding: 1.2rem;
                 max-width: 240px;
+                min-height: 200px;
             }
             .score-card h3 {
                 font-size: 0.96rem;
                 margin-bottom: 0.4rem;
-                max-height: 2.304em;
             }
             .score-display {
-                font-size: 2.4rem;
+                font-size: 4rem;
                 margin: 0.4rem 0;
             }
             .modal-content {
@@ -748,13 +751,8 @@
                 width: 144px;
             }
             .keypad {
-                gap: 0.3rem;
+                gap: 10px;
                 max-width: 200px;
-            }
-            .keypad-button {
-                font-size: 1.2rem;
-                min-height: 44px;
-                min-width: 44px;
             }
             #winners-circle-cover h1 {
                 font-size: 1.2rem;
@@ -873,9 +871,10 @@
     <div id="reset-modal" class="modal" role="dialog" aria-labelledby="reset-prompt">
         <div class="modal-content">
             <p id="reset-prompt">Reset?</p>
-            <div>
+            <div class="button-container">
                 <button class="submit" onclick="resetNames()" aria-label="Reset names">Names</button>
                 <button class="cancel" onclick="resetScores()" aria-label="Reset scores">Score</button>
+                <button class="cancel" onclick="closeResetModal()" aria-label="Cancel reset">Cancel</button>
             </div>
         </div>
     </div>
@@ -902,7 +901,6 @@
         let isMuted = localStorage.getItem('isMuted') === 'true';
         let currentPlayer, currentCategory;
         let lastToastTime = 0;
-
         // Apply mute state to all audio elements
         function applyMuteState() {
             const audioElements = document.querySelectorAll('audio');
@@ -911,7 +909,6 @@
                 audio.volume = isMuted ? 0 : 1;
             });
         }
-
         // Custom Keypad Event Listeners
         const keypadButtons = document.querySelectorAll('.keypad-button');
         keypadButtons.forEach(btn => {
@@ -926,7 +923,6 @@
                 }
             });
         });
-
         function showToast(message) {
             const now = Date.now();
             if (now - lastToastTime < 1000) return;
@@ -941,7 +937,6 @@
                 setTimeout(() => toast.remove(), 300);
             }, 3000);
         }
-
         function playSound(soundId) {
             const sound = document.getElementById(soundId);
             if (!sound) {
@@ -956,11 +951,9 @@
                 showToast('Audio playback failed.');
             });
         }
-
         function sanitizeName(name) {
             return name.replace(/[<>&"]/g, '').trim().slice(0, 20);
         }
-
         function startGame() {
             const namesInput = document.getElementById('player-names').value.trim();
             playerNames = namesInput.split('\n').map(sanitizeName).filter(name => name !== '');
@@ -1027,7 +1020,6 @@
             localStorage.setItem('playerNames', JSON.stringify(playerNames));
             saveScores();
         }
-
         function openModal(player, category) {
             currentPlayer = player;
             currentCategory = category;
@@ -1037,11 +1029,9 @@
             modal.style.display = 'flex';
             trapFocus(modal);
         }
-
         function closeModal() {
             document.getElementById('score-modal').style.display = 'none';
         }
-
         function applyScoreChange(direction) {
             const input = document.getElementById('score-input').value;
             const change = parseInt(input) * direction;
@@ -1085,13 +1075,11 @@
             }
             closeModal();
         }
-
         document.getElementById('score-input').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
                 applyScoreChange(1); // Default to add on Enter
             }
         });
-
         function undoScoreChange() {
             if (scoreHistory.length === 0) {
                 showToast('No actions to undo.');
@@ -1106,15 +1094,12 @@
             localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
             showToast('Score change undone.');
         }
-
         function calculateTotal(playerId) {
             return Object.values(scores[playerId]).reduce((sum, score) => sum + score, 0);
         }
-
         function saveScores() {
             localStorage.setItem('scores', JSON.stringify(scores));
         }
-
         function toggleMute() {
             isMuted = !isMuted;
             localStorage.setItem('isMuted', isMuted);
@@ -1124,7 +1109,6 @@
             });
             applyMuteState();
         }
-
         async function openWinnersCircle() {
             if (playerNames.length === 0) {
                 showToast('No players to display winners.');
@@ -1191,7 +1175,6 @@
                 await new Promise(resolve => setTimeout(resolve, 1000));
             }
         }
-
         function rematchGame() {
             for (let player in scores) {
                 for (let category in scores[player]) {
@@ -1206,7 +1189,6 @@
             document.getElementById('winners-circle-cover').style.display = 'none';
             document.getElementById('main-content').style.display = 'block';
         }
-
         function resetGame() {
             scores = {};
             playerNames = [];
@@ -1216,13 +1198,14 @@
             document.getElementById('splash-screen').style.display = 'flex';
             document.getElementById('main-content').style.display = 'none';
         }
-
         function openResetModal() {
             const modal = document.getElementById('reset-modal');
             modal.style.display = 'flex';
             trapFocus(modal);
         }
-
+        function closeResetModal() {
+            document.getElementById('reset-modal').style.display = 'none';
+        }
         function resetNames() {
             scores = {};
             playerNames = [];
@@ -1232,7 +1215,6 @@
             document.getElementById('splash-screen').style.display = 'flex';
             document.getElementById('main-content').style.display = 'none';
         }
-
         function resetScores() {
             for (let player in scores) {
                 for (let category in scores[player]) {
@@ -1246,7 +1228,6 @@
             localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
             document.getElementById('reset-modal').style.display = 'none';
         }
-
         function toggleMute() {
             isMuted = !isMuted;
             localStorage.setItem('isMuted', isMuted);
@@ -1256,7 +1237,6 @@
             });
             applyMuteState();
         }
-
         function trapFocus(modal) {
             const focusableElements = modal.querySelectorAll('button, input, textarea, select, [tabindex]:not([tabindex="-1"])');
             const firstElement = focusableElements[0];
@@ -1278,7 +1258,6 @@
                 }
             });
         }
-
         window.onload = function() {
             isMuted = localStorage.getItem('isMuted') === 'true';
             const speakerIcons = document.querySelectorAll('.speaker-icon');
