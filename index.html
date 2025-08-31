@@ -152,8 +152,8 @@
             flex-wrap: wrap;
         }
         .score-card {
-            background: rgba(0, 95, 107, 0.8);
-            border: 2px solid #00C4B4;
+            background: #FFFFFF;
+            border: 6px solid #FF0000;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             padding: 1.5rem;
@@ -165,17 +165,17 @@
         }
         .score-card h3 {
             font-size: 1.1rem;
-            color: #FFFFFF;
+            color: #000000;
             margin-bottom: 0.5rem;
             text-transform: uppercase;
-            white-space: nowrap;
+            white-space: normal;
+            line-height: 1.2;
         }
         .score-display {
             font-size: 2rem;
-            color: #00C4B4;
+            color: #000000;
             margin: 0.5rem 0;
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         .score-controls button {
             padding: 0.5rem 1rem;
@@ -250,11 +250,14 @@
             border: 2px solid #00C4B4;
             border-radius: 10px;
             cursor: pointer;
-            margin: 0 0.875rem;
             transition: background-color 0.2s, transform 0.2s;
             text-transform: uppercase;
             touch-action: manipulation;
             min-height: 84px;
+            width: 150px;
+        }
+        .modal-content .add, .modal-content .subtract {
+            margin: 0 0.875rem 1.75rem 0.875rem;
         }
         .modal-content .add {
             background-color: #008390;
@@ -275,6 +278,7 @@
         .modal-content .cancel {
             background-color: #005F6B;
             color: #00C4B4;
+            margin: 0 auto;
         }
         .modal-content .cancel:hover {
             background-color: #004D58;
@@ -683,39 +687,25 @@
                 min-height: 38.4px;
             }
             h1 {
-                font-size: 1.32rem;
+                font-size: 1.2rem;
             }
             .players-grid {
-                gap: 0.88rem;
-                flex-wrap: wrap;
-            }
-            .player-section {
-                flex: 0 0 calc(50% - 0.44rem);
-            }
-            .player-header {
-                gap: 0.88rem;
-                margin-bottom: 0.88rem;
-                padding: 0.44rem;
-                border-radius: 8.8px;
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 0.8rem;
             }
             .player-section h2 {
-                font-size: 1.056rem;
-                text-shadow: 0.88px 0.88px 2.64px rgba(0, 0, 0, 0.5);
+                font-size: 0.96rem;
             }
             .total-score {
-                font-size: 0.88rem;
-                text-shadow: 0.88px 0.88px 1.76px rgba(0, 0, 0, 0.5);
+                font-size: 0.8rem;
             }
             .score-container {
                 grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
-                gap: 0.88rem;
+                gap: 0.8rem;
                 padding-bottom: 2rem;
             }
             .score-card {
                 padding: 1.32rem;
-                border: 1.76px solid #00C4B4;
-                border-radius: 8.8px;
-                box-shadow: 0 3.52px 7.04px rgba(0, 0, 0, 0.5);
             }
             .score-card h3 {
                 font-size: 0.968rem;
@@ -724,18 +714,6 @@
             .score-display {
                 font-size: 1.76rem;
                 margin: 0.44rem 0;
-                text-shadow: 0.88px 0.88px 1.76px rgba(0, 0, 0, 0.5);
-            }
-            .score-controls {
-                gap: 0.44rem;
-            }
-            .score-controls button {
-                font-size: 1.32rem;
-                padding: 0.44rem;
-                width: 48px;
-                height: 48px;
-                border: 1.76px solid #00C4B4;
-                border-radius: 8.8px;
             }
             .modal-content {
                 width: 90%;
@@ -988,11 +966,11 @@
                 </div>
                 <div class="score-container">
                     <div class="score-card" onclick="openModal('${playerId}', 'power-knowledge')" id="${playerId}-power-knowledge-card">
-                        <h3>Power/Knowledge</h3>
+                        <h3>Power / Knowledge</h3>
                         <div class="score-display" id="${playerId}-power-knowledge-score" aria-live="polite">${scores[playerId]['power-knowledge']}</div>
                     </div>
                     <div class="score-card" onclick="openModal('${playerId}', 'handling-traction')" id="${playerId}-handling-traction-card">
-                        <h3>Handling/Traction</h3>
+                        <h3>Handling / Traction</h3>
                         <div class="score-display" id="${playerId}-handling-traction-score" aria-live="polite">${scores[playerId]['handling-traction']}</div>
                     </div>
                     <div class="score-card" onclick="openModal('${playerId}', 'reliability')" id="${playerId}-reliability-card">
@@ -1066,7 +1044,7 @@
                 modalContent.appendChild(marks);
                 setTimeout(() => marks.remove(), 500);
             }
-            document.getElementById('score-input').value = '';
+            closeModal();
         }
         document.getElementById('score-input').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
@@ -1266,11 +1244,11 @@
                     </div>
                     <div class="score-container">
                         <div class="score-card" onclick="openModal('${playerId}', 'power-knowledge')" id="${playerId}-power-knowledge-card">
-                            <h3>Power/Knowledge</h3>
+                            <h3>Power / Knowledge</h3>
                             <div class="score-display" id="${playerId}-power-knowledge-score" aria-live="polite">${scores[playerId]['power-knowledge']}</div>
                         </div>
                         <div class="score-card" onclick="openModal('${playerId}', 'handling-traction')" id="${playerId}-handling-traction-card">
-                            <h3>Handling/Traction</h3>
+                            <h3>Handling / Traction</h3>
                             <div class="score-display" id="${playerId}-handling-traction-score" aria-live="polite">${scores[playerId]['handling-traction']}</div>
                         </div>
                         <div class="score-card" onclick="openModal('${playerId}', 'reliability')" id="${playerId}-reliability-card">
