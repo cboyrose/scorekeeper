@@ -140,8 +140,9 @@
             flex-grow: 1;
         }
         .player-section {
+            margin-bottom: 1.08rem;
             text-align: center;
-            width: 216px;
+            flex: 0 0 216px;
         }
         .player-header {
             display: flex;
@@ -166,11 +167,10 @@
             text-shadow: 0.72px 0.72px 1.44px rgba(0, 0, 0, 0.5);
         }
         .score-container {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
             gap: 0.72rem;
             width: 100%;
-            flex-wrap: wrap;
         }
         .score-card {
             background: rgba(0, 95, 107, 0.8);
@@ -178,10 +178,12 @@
             border-radius: 7.2px;
             box-shadow: 0 2.88px 5.76px rgba(0, 0, 0, 0.5);
             padding: 1.08rem;
-            width: 100%;
-            max-width: 180px;
             text-align: center;
             position: relative;
+            aspect-ratio: 1 / 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .score-card h3 {
             font-size: 0.792rem;
@@ -699,14 +701,16 @@
                 gap: 0.576rem;
             }
             .player-section {
-                width: 115.2px;
+                flex: 0 0 calc(50% - 0.288rem);
             }
             .total-score {
                 font-size: 0.576rem;
             }
+            .score-container {
+                grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            }
             .score-card {
                 padding: 0.576rem;
-                max-width: 100%;
             }
             .score-card h3 {
                 font-size: 0.4608rem;
@@ -718,6 +722,7 @@
                 font-size: 0.6912rem;
                 padding: 0.2304rem 0.4608rem;
                 min-height: 27.648px;
+                margin: 0 0.1152rem;
             }
             .modal-content {
                 width: 90%;
