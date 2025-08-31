@@ -55,7 +55,12 @@
         @media (min-width: 768px) and (max-width: 1024px) {
             .keypad {
                 gap: 0.5rem;
-                max-width: 200px;
+                max-width: 350px;
+            }
+            .keypad-button {
+                font-size: 1.8rem;
+                min-height: 64px;
+                min-width: 64px;
             }
         }
         /* Splash Screen */
@@ -174,26 +179,25 @@
         }
         .score-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 1rem;
             width: 100%;
             padding-bottom: 2rem;
         }
         .score-card {
             background: #FFFFFF;
-            border: 6px solid #000000;
-            border-radius: 4px;
+            box-shadow: inset 0 0 6px #000000;
+            border-radius: 10px;
             padding: 1.5rem;
             width: 100%;
-            max-width: 400px;
-            min-height: 250px;
+            max-width: 300px;
             text-align: center;
             position: relative;
             cursor: pointer;
+            aspect-ratio: 18 / 24;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
         }
         .score-card h3 {
             font-size: 1.2rem;
@@ -202,17 +206,14 @@
             text-transform: uppercase;
             white-space: normal;
             line-height: 1.2;
-            overflow: visible;
+            max-height: 2.88em;
+            overflow: hidden;
         }
         .score-display {
-            font-size: 6rem;
+            font-size: 3rem;
             color: #000000;
             margin: 0.5rem 0;
             font-weight: bold;
-            flex-grow: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         /* Modal Styles */
         .modal {
@@ -298,15 +299,14 @@
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
+            gap: 0.5rem;
             margin-top: 1.75rem;
             margin-bottom: 1.75rem;
-            max-width: 200px;
+            max-width: 300px;
         }
         .keypad-button {
-            width: 60px;
-            height: 60px;
-            font-size: 1.5rem;
+            padding: 0.5rem;
+            font-size: 1.2rem;
             background-color: #008390;
             color: #FFFFFF;
             border: 2px solid #00C4B4;
@@ -314,6 +314,8 @@
             cursor: pointer;
             transition: background-color 0.2s;
             touch-action: manipulation;
+            min-height: 44px;
+            min-width: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -512,22 +514,17 @@
             margin-bottom: 1rem;
             text-transform: uppercase;
         }
-        #reset-modal .modal-content .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
         #reset-modal .modal-content button {
             padding: 0.5rem 1rem;
             font-size: 1rem;
             border: 2px solid #00C4B4;
             border-radius: 10px;
             cursor: pointer;
+            margin: 0 0.5rem;
             transition: background-color 0.2s, transform 0.2s;
             text-transform: uppercase;
             touch-action: manipulation;
             min-height: 48px;
-            width: 80px;
         }
         #reset-modal .modal-content .submit {
             background-color: #008390;
@@ -723,14 +720,14 @@
             .score-card {
                 padding: 1.2rem;
                 max-width: 240px;
-                min-height: 200px;
             }
             .score-card h3 {
                 font-size: 0.96rem;
                 margin-bottom: 0.4rem;
+                max-height: 2.304em;
             }
             .score-display {
-                font-size: 4rem;
+                font-size: 2.4rem;
                 margin: 0.4rem 0;
             }
             .modal-content {
@@ -751,8 +748,13 @@
                 width: 144px;
             }
             .keypad {
-                gap: 10px;
+                gap: 0.3rem;
                 max-width: 200px;
+            }
+            .keypad-button {
+                font-size: 1.2rem;
+                min-height: 44px;
+                min-width: 44px;
             }
             #winners-circle-cover h1 {
                 font-size: 1.2rem;
@@ -871,10 +873,9 @@
     <div id="reset-modal" class="modal" role="dialog" aria-labelledby="reset-prompt">
         <div class="modal-content">
             <p id="reset-prompt">Reset?</p>
-            <div class="button-container">
+            <div>
                 <button class="submit" onclick="resetNames()" aria-label="Reset names">Names</button>
                 <button class="cancel" onclick="resetScores()" aria-label="Reset scores">Score</button>
-                <button class="cancel" onclick="closeResetModal()" aria-label="Cancel reset">Cancel</button>
             </div>
         </div>
     </div>
@@ -1202,9 +1203,6 @@
             const modal = document.getElementById('reset-modal');
             modal.style.display = 'flex';
             trapFocus(modal);
-        }
-        function closeResetModal() {
-            document.getElementById('reset-modal').style.display = 'none';
         }
         function resetNames() {
             scores = {};
