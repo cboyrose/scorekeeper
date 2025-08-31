@@ -51,6 +51,18 @@
                 overflow: auto;
             }
         }
+        /* iPad-specific adjustments */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .keypad {
+                gap: 0.5rem;
+                max-width: 350px;
+            }
+            .keypad-button {
+                font-size: 1.8rem;
+                min-height: 64px;
+                min-width: 64px;
+            }
+        }
         /* Splash Screen */
         #splash-screen {
             position: fixed;
@@ -167,7 +179,7 @@
         }
         .score-container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
             gap: 1rem;
             width: 100%;
             padding-bottom: 2rem;
@@ -178,7 +190,7 @@
             border-radius: 10px;
             padding: 1.5rem;
             width: 100%;
-            max-width: 240px;
+            max-width: 300px;
             text-align: center;
             position: relative;
             cursor: pointer;
@@ -188,13 +200,13 @@
             justify-content: space-between;
         }
         .score-card h3 {
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: #000000;
             margin-bottom: 0.5rem;
             text-transform: uppercase;
             white-space: normal;
             line-height: 1.2;
-            max-height: 2.4em;
+            max-height: 2.88em;
             overflow: hidden;
         }
         .score-display {
@@ -294,7 +306,7 @@
         }
         .keypad-button {
             padding: 0.5rem;
-            font-size: 1.75rem;
+            font-size: 1.2rem;
             background-color: #008390;
             color: #FFFFFF;
             border: 2px solid #00C4B4;
@@ -302,8 +314,8 @@
             cursor: pointer;
             transition: background-color 0.2s;
             touch-action: manipulation;
-            min-height: 56px;
-            min-width: 56px;
+            min-height: 44px;
+            min-width: 44px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -701,18 +713,18 @@
                 font-size: 0.8rem;
             }
             .score-container {
-                grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
                 gap: 0.8rem;
                 padding-bottom: 2rem;
             }
             .score-card {
                 padding: 1.2rem;
-                max-width: 192px;
+                max-width: 240px;
             }
             .score-card h3 {
-                font-size: 0.8rem;
+                font-size: 0.96rem;
                 margin-bottom: 0.4rem;
-                max-height: 1.92em;
+                max-height: 2.304em;
             }
             .score-display {
                 font-size: 2.4rem;
@@ -736,13 +748,13 @@
                 width: 144px;
             }
             .keypad {
-                gap: 0.4rem;
-                max-width: 240px;
+                gap: 0.3rem;
+                max-width: 200px;
             }
             .keypad-button {
-                font-size: 1.4rem;
-                min-height: 48px;
-                min-width: 48px;
+                font-size: 1.2rem;
+                min-height: 44px;
+                min-width: 44px;
             }
             #winners-circle-cover h1 {
                 font-size: 1.2rem;
@@ -1233,6 +1245,16 @@
             saveScores();
             localStorage.setItem('scoreHistory', JSON.stringify(scoreHistory));
             document.getElementById('reset-modal').style.display = 'none';
+        }
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            localStorage.setItem('isMuted', isMuted);
+            const speakerIcons = document.querySelectorAll('.speaker-icon');
+            speakerIcons.forEach(icon => {
+                icon.textContent = isMuted ? '🔇' : '🔊';
+            });
+            applyMuteState();
         }
 
         function trapFocus(modal) {
