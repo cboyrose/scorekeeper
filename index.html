@@ -31,6 +31,26 @@
             height: 100%;
             width: 100%;
         }
+        /* iPhone-specific scaling */
+        @media only screen and (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 896px) {
+            .content-wrapper {
+                transform: scale(0.792);
+                transform-origin: top left;
+                width: 126.26%;
+                height: 126.26%;
+            }
+            .screen-content {
+                transform: scale(0.88);
+                transform-origin: center;
+            }
+            .player-section {
+                transform: scale(0.99);
+                transform-origin: center;
+            }
+            body {
+                overflow: auto;
+            }
+        }
         /* Splash Screen */
         #splash-screen {
             position: fixed;
@@ -98,7 +118,8 @@
             flex-grow: 1;
             flex-direction: column;
             position: relative;
-            padding-bottom: 4rem;
+            padding-bottom: 4.5rem;
+            overflow-y: auto;
         }
         h1 {
             color: #00C4B4;
@@ -113,7 +134,7 @@
         }
         .players-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             gap: 1.5rem;
             width: 100%;
             flex-grow: 1;
@@ -145,23 +166,26 @@
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
         .score-container {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
             gap: 1rem;
             width: 100%;
-            flex-wrap: wrap;
+            padding-bottom: 2rem;
         }
         .score-card {
             background: #FFFFFF;
-            border: 6px solid #FF0000;
+            box-shadow: inset 0 0 6px #000000;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
             padding: 1.5rem;
             width: 100%;
-            max-width: 250px;
+            max-width: 200px;
             text-align: center;
             position: relative;
             cursor: pointer;
+            aspect-ratio: 18 / 24;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         .score-card h3 {
             font-size: 1.1rem;
@@ -172,37 +196,10 @@
             line-height: 1.2;
         }
         .score-display {
-            font-size: 2rem;
+            font-size: 3rem;
             color: #000000;
             margin: 0.5rem 0;
             font-weight: bold;
-        }
-        .score-controls button {
-            padding: 0.5rem 1rem;
-            font-size: 1.5rem;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
-            cursor: pointer;
-            margin: 0 0.5rem;
-            transition: background-color 0.2s, transform 0.2s;
-            touch-action: manipulation;
-            min-height: 48px;
-        }
-        .score-controls .plus {
-            background-color: #008390;
-            color: #FFFFFF;
-        }
-        .score-controls .plus:hover {
-            background-color: #006F7D;
-            transform: scale(1.05);
-        }
-        .score-controls .minus {
-            background-color: #005F6B;
-            color: #00C4B4;
-        }
-        .score-controls .minus:hover {
-            background-color: #004D58;
-            transform: scale(1.05);
         }
         /* Modal Styles */
         .modal {
@@ -287,13 +284,14 @@
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.875rem;
+            gap: 0.5rem;
             margin-top: 1.75rem;
             margin-bottom: 1.75rem;
+            max-width: 300px;
         }
         .keypad-button {
-            padding: 0.875rem;
-            font-size: 2.625rem;
+            padding: 0.5rem;
+            font-size: 1.75rem;
             background-color: #008390;
             color: #FFFFFF;
             border: 2px solid #00C4B4;
@@ -301,8 +299,8 @@
             cursor: pointer;
             transition: background-color 0.2s;
             touch-action: manipulation;
-            min-height: 84px;
-            min-width: 84px;
+            min-height: 56px;
+            min-width: 56px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -705,15 +703,16 @@
                 padding-bottom: 2rem;
             }
             .score-card {
-                padding: 1.32rem;
+                padding: 1.2rem;
+                max-width: 160px;
             }
             .score-card h3 {
-                font-size: 0.968rem;
-                margin-bottom: 0.44rem;
+                font-size: 0.88rem;
+                margin-bottom: 0.4rem;
             }
             .score-display {
-                font-size: 1.76rem;
-                margin: 0.44rem 0;
+                font-size: 2.4rem;
+                margin: 0.4rem 0;
             }
             .modal-content {
                 width: 90%;
@@ -730,10 +729,16 @@
                 font-size: 1.26rem;
                 padding: 0.56rem 1.12rem;
                 min-height: 60.48px;
+                width: 120px;
+            }
+            .keypad {
+                gap: 0.4rem;
+                max-width: 240px;
             }
             .keypad-button {
-                font-size: 2.16rem;
-                min-height: 60.48px;
+                font-size: 1.4rem;
+                min-height: 48px;
+                min-width: 48px;
             }
             #winners-circle-cover h1 {
                 font-size: 1.2rem;
@@ -875,14 +880,12 @@
     <audio id="screech-sound-4" src="screech4.mp3" preload="auto"></audio>
     <audio id="screech-sound-5" src="screech5.mp3" preload="auto"></audio>
     <script>
-        // Object to store scores and history
         let scores = JSON.parse(localStorage.getItem('scores')) || {};
         let playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
         let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory')) || [];
         let isMuted = localStorage.getItem('isMuted') === 'true';
         let currentPlayer, currentCategory;
         let lastToastTime = 0;
-        // Custom Keypad Event Listeners
         const keypadButtons = document.querySelectorAll('.keypad-button');
         keypadButtons.forEach(btn => {
             btn.addEventListener('click', () => {
@@ -1009,6 +1012,7 @@
             const change = parseInt(input) * direction;
             if (isNaN(change)) {
                 alert('Please enter a valid number.');
+                closeModal();
                 return;
             }
             const newScore = scores[currentPlayer][currentCategory] + change;
@@ -1048,7 +1052,7 @@
         }
         document.getElementById('score-input').addEventListener('keypress', function(event) {
             if (event.key === 'Enter') {
-                // Optionally handle enter if needed, but since no submit, perhaps do nothing or default to add
+                applyScoreChange(1); // Default to add on Enter
             }
         });
         function undoScoreChange() {
