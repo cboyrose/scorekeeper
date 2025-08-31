@@ -140,7 +140,6 @@
             flex-grow: 1;
         }
         .player-section {
-            margin-bottom: 1.08rem;
             text-align: center;
             flex: 0 0 216px;
         }
@@ -170,14 +169,16 @@
             display: grid;
             grid-template-columns: repeat(5, 1fr);
             gap: 0.72rem;
-            width: 100%;
+            width: 90vw;
+            margin: 0 auto;
+            padding-bottom: 2rem;
         }
         .score-card {
             background: rgba(0, 95, 107, 0.8);
             border: 1.44px solid #00C4B4;
             border-radius: 7.2px;
             box-shadow: 0 2.88px 5.76px rgba(0, 0, 0, 0.5);
-            padding: 1.08rem;
+            padding: 1.188rem;
             text-align: center;
             position: relative;
             aspect-ratio: 1 / 1;
@@ -186,29 +187,29 @@
             justify-content: space-between;
         }
         .score-card h3 {
-            font-size: 0.792rem;
+            font-size: 0.8712rem;
             color: #FFFFFF;
-            margin-bottom: 0.36rem;
+            margin-bottom: 0.396rem;
             text-transform: uppercase;
             white-space: nowrap;
         }
         .score-display {
-            font-size: 1.44rem;
+            font-size: 1.584rem;
             color: #00C4B4;
-            margin: 0.36rem 0;
+            margin: 0.396rem 0;
             font-weight: bold;
-            text-shadow: 0.72px 0.72px 1.44px rgba(0, 0, 0, 0.5);
+            text-shadow: 0.792px 0.792px 1.584px rgba(0, 0, 0, 0.5);
         }
         .score-controls button {
-            padding: 0.36rem 0.72rem;
-            font-size: 1.08rem;
-            border: 1.44px solid #00C4B4;
-            border-radius: 7.2px;
+            padding: 0.396rem 0.792rem;
+            font-size: 1.188rem;
+            border: 1.584px solid #00C4B4;
+            border-radius: 7.92px;
             cursor: pointer;
-            margin: 0 0.36rem;
+            margin: 0 0.396rem;
             transition: background-color 0.2s, transform 0.2s;
             touch-action: manipulation;
-            min-height: 34.56px;
+            min-height: 38.016px;
         }
         .score-controls .plus {
             background-color: #008390;
@@ -707,22 +708,24 @@
                 font-size: 0.576rem;
             }
             .score-container {
-                grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+                gap: 0.576rem;
+                width: 90vw;
+                padding-bottom: 2rem;
             }
             .score-card {
-                padding: 0.576rem;
+                padding: 0.6336rem;
             }
             .score-card h3 {
-                font-size: 0.4608rem;
+                font-size: 0.50688rem;
             }
             .score-display {
-                font-size: 0.864rem;
+                font-size: 0.9504rem;
             }
             .score-controls button {
-                font-size: 0.6912rem;
-                padding: 0.2304rem 0.4608rem;
-                min-height: 27.648px;
-                margin: 0 0.1152rem;
+                font-size: 0.76032rem;
+                padding: 0.25344rem 0.50688rem;
+                min-height: 30.4128px;
+                margin: 0 0.12672rem;
             }
             .modal-content {
                 width: 90%;
@@ -878,7 +881,6 @@
     <audio id="screech-sound-4" src="screech4.mp3" preload="auto"></audio>
     <audio id="screech-sound-5" src="screech5.mp3" preload="auto"></audio>
     <script>
-        // The JavaScript code remains the same as before
         let scores = JSON.parse(localStorage.getItem('scores')) || {};
         let playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
         let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory')) || [];
