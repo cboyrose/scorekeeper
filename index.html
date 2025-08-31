@@ -16,12 +16,24 @@
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Home.jpg') no-repeat center center/cover;
             color: #FFFFFF;
             min-height: 100vh;
-            padding: 0.8rem;
+            padding: 0.64rem; /* Reduced from 0.8rem */
             position: relative;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
             transition: background 0.3s;
+        }
+        /* iPhone-specific scaling */
+        @media only screen and (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 896px) {
+            .content-wrapper {
+                transform: scale(0.8);
+                transform-origin: top left;
+                width: 125%; /* Compensate for scaling */
+                height: 125%; /* Compensate for scaling */
+            }
+            body {
+                overflow: auto; /* Ensure scrolling works */
+            }
         }
         /* Splash Screen */
         #splash-screen {
@@ -36,53 +48,53 @@
             justify-content: center;
             align-items: center;
             z-index: 2000;
-            text-shadow: 1.6px 1.6px 3.2px rgba(0, 0, 0, 0.5);
-            padding-bottom: 2.4rem;
+            text-shadow: 1.28px 1.28px 2.56px rgba(0, 0, 0, 0.5); /* Reduced from 1.6px, 3.2px */
+            padding-bottom: 1.92rem; /* Reduced from 2.4rem */
         }
-        #splash-screen h1 {
-            font-size: 1.8rem;
+ Eldest child: System: #splash-screen h1 {
+            font-size: 1.44rem; /* Reduced from 1.8rem */
             color: #FFFFFF;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.64rem; /* Reduced from 0.8rem */
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.6px; /* Reduced from 2px */
             background: rgba(0, 0, 0, 0.7);
-            padding: 0.4rem 1rem;
-            border-radius: 10px;
+            padding: 0.32rem 0.8rem; /* Reduced from 0.4rem 1rem */
+            border-radius: 8px; /* Reduced from 10px */
         }
         #splash-screen p {
-            font-size: 1.2rem;
+            font-size: 0.96rem; /* Reduced from 1.2rem */
             color: #FFFFFF;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.64rem; /* Reduced from 0.8rem */
             text-transform: uppercase;
         }
         #splash-screen textarea {
-            padding: 0.4rem;
-            font-size: 1rem;
+            padding: 0.32rem; /* Reduced from 0.4rem */
+            font-size: 0.8rem; /* Reduced from 1rem */
             width: 90%;
-            max-width: 300px;
-            height: 120px;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
+            max-width: 240px; /* Reduced from 300px */
+            height: 96px; /* Reduced from 120px */
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
             background-color: rgba(0, 95, 107, 0.8);
             color: #FFFFFF;
             text-align: center;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.64rem; /* Reduced from 0.8rem */
             resize: none;
             outline: none;
             touch-action: manipulation;
         }
         #splash-screen button {
-            padding: 0.8rem 2rem;
-            font-size: 1.2rem;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
+            padding: 0.64rem 1.6rem; /* Reduced from 0.8rem 2rem */
+            font-size: 0.96rem; /* Reduced from 1.2rem */
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
             background-color: #008390;
             color: #FFFFFF;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
             text-transform: uppercase;
             touch-action: manipulation;
-            min-height: 48px;
+            min-height: 38.4px; /* Reduced from 48px */
         }
         #splash-screen button:hover {
             background-color: #006F7D;
@@ -94,94 +106,94 @@
             flex-grow: 1;
             flex-direction: column;
             position: relative;
-            padding-bottom: 4rem;
+            padding-bottom: 3.2rem; /* Reduced from 4rem */
         }
         h1 {
             color: #00C4B4;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem; /* Reduced from 1.5rem */
             text-align: center;
             text-transform: uppercase;
-            font-size: 2rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            font-size: 1.6rem; /* Reduced from 2rem */
+            text-shadow: 1.6px 1.6px 3.2px rgba(0, 0, 0, 0.5); /* Reduced from 2px, 4px */
             background: rgba(0, 0, 0, 0.7);
-            padding: 0.5rem 1rem;
-            border-radius: 10px;
+            padding: 0.4rem 0.8rem; /* Reduced from 0.5rem 1rem */
+            border-radius: 8px; /* Reduced from 10px */
         }
         .players-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Reduced from 300px */
+            gap: 1.2rem; /* Reduced from 1.5rem */
             width: 100%;
             flex-grow: 1;
         }
         .player-section {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem; /* Reduced from 1.5rem */
             text-align: center;
         }
         .player-header {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
+            gap: 0.8rem; /* Reduced from 1rem */
+            margin-bottom: 0.8rem; /* Reduced from 1rem */
             background: rgba(0, 0, 0, 0.7);
-            padding: 0.5rem;
-            border-radius: 10px;
+            padding: 0.4rem; /* Reduced from 0.5rem */
+            border-radius: 8px; /* Reduced from 10px */
         }
         .player-section h2 {
             color: #008390;
-            font-size: 1.5rem;
+            font-size: 1.2rem; /* Reduced from 1.5rem */
             text-transform: uppercase;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            text-shadow: 0.8px 0.8px 2.4px rgba(0, 0, 0, 0.5); /* Reduced from 1px, 3px */
         }
         .total-score {
-            font-size: 1.2rem;
+            font-size: 0.96rem; /* Reduced from 1.2rem */
             color: #00C4B4;
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 0.8px 0.8px 1.6px rgba(0, 0, 0, 0.5); /* Reduced from 1px, 2px */
         }
         .score-container {
             display: flex;
             justify-content: center;
-            gap: 1rem;
+            gap: 0.8rem; /* Reduced from 1rem */
             width: 100%;
             flex-wrap: wrap;
         }
         .score-card {
             background: rgba(0, 95, 107, 0.8);
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            padding: 1.5rem;
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
+            box-shadow: 0 3.2px 6.4px rgba(0, 0, 0, 0.5); /* Reduced from 4px, 8px */
+            padding: 1.2rem; /* Reduced from 1.5rem */
             width: 100%;
-            max-width: 250px;
+            max-width: 200px; /* Reduced from 250px */
             text-align: center;
             position: relative;
         }
         .score-card h3 {
-            font-size: 1.1rem;
+            font-size: 0.88rem; /* Reduced from 1.1rem */
             color: #FFFFFF;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.4rem; /* Reduced from 0.5rem */
             text-transform: uppercase;
             white-space: nowrap;
         }
         .score-display {
-            font-size: 2rem;
+            font-size: 1.6rem; /* Reduced from 2rem */
             color: #00C4B4;
-            margin: 0.5rem 0;
+            margin: 0.4rem 0; /* Reduced from 0.5rem */
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            text-shadow: 0.8px 0.8px 1.6px rgba(0, 0, 0, 0.5); /* Reduced from 1px, 2px */
         }
         .score-controls button {
-            padding: 0.5rem 1rem;
-            font-size: 1.5rem;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
+            padding: 0.4rem 0.8rem; /* Reduced from 0.5rem 1rem */
+            font-size: 1.2rem; /* Reduced from 1.5rem */
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
             cursor: pointer;
-            margin: 0 0.5rem;
+            margin: 0 0.4rem; /* Reduced from 0.5rem */
             transition: background-color 0.2s, transform 0.2s;
             touch-action: manipulation;
-            min-height: 48px;
+            min-height: 38.4px; /* Reduced from 48px */
         }
         .score-controls .plus {
             background-color: #008390;
@@ -214,42 +226,42 @@
         }
         .modal-content {
             background: rgba(0, 95, 107, 0.8);
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
-            padding: 2.625rem;
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
+            padding: 2.1rem; /* Reduced from 2.625rem */
             text-align: center;
             max-width: 90%;
-            width: 525px;
+            width: 420px; /* Reduced from 525px */
         }
         .modal-content p {
             color: #FFFFFF;
-            font-size: 1.75rem;
-            margin-bottom: 1.75rem;
+            font-size: 1.4rem; /* Reduced from 1.75rem */
+            margin-bottom: 1.4rem; /* Reduced from 1.75rem */
             text-transform: uppercase;
         }
         .modal-content input {
-            padding: 0.875rem;
-            font-size: 1.75rem;
-            width: 175px;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
+            padding: 0.7rem; /* Reduced from 0.875rem */
+            font-size: 1.4rem; /* Reduced from 1.75rem */
+            width: 140px; /* Reduced from 175px */
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
             background-color: rgba(0, 95, 107, 0.8);
             color: #FFFFFF;
             text-align: center;
-            margin-bottom: 1.75rem;
+            margin-bottom: 1.4rem; /* Reduced from 1.75rem */
             touch-action: manipulation;
         }
         .modal-content button {
-            padding: 0.875rem 1.75rem;
-            font-size: 1.75rem;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
+            padding: 0.7rem 1.4rem; /* Reduced from 0.875rem 1.75rem */
+            font-size: 1.4rem; /* Reduced from 1.75rem */
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
             cursor: pointer;
-            margin: 0 0.875rem;
+            margin: 0 0.7rem; /* Reduced from 0.875rem */
             transition: background-color 0.2s, transform 0.2s;
             text-transform: uppercase;
             touch-action: manipulation;
-            min-height: 84px;
+            min-height: 67.2px; /* Reduced from 84px */
         }
         .modal-content .submit {
             background-color: #008390;
@@ -270,22 +282,22 @@
         .keypad {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 0.875rem;
-            margin-top: 1.75rem;
-            margin-bottom: 1.75rem;
+            gap: 0.7rem; /* Reduced from 0.875rem */
+            margin-top: 1.4rem; /* Reduced from 1.75rem */
+            margin-bottom: 1.4rem; /* Reduced from 1.75rem */
         }
         .keypad-button {
-            padding: 0.875rem;
-            font-size: 2.625rem;
+            padding: 0.7rem; /* Reduced from 0.875rem */
+            font-size: 2.1rem; /* Reduced from 2.625rem */
             background-color: #008390;
             color: #FFFFFF;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
             cursor: pointer;
             transition: background-color 0.2s;
             touch-action: manipulation;
-            min-height: 84px;
-            min-width: 84px;
+            min-height: 67.2px; /* Reduced from 84px */
+            min-width: 67.2px; /* Reduced from 84px */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -312,43 +324,43 @@
             flex-direction: column;
             align-items: center;
             z-index: 2000;
-            text-shadow: 1.6px 1.6px 3.2px rgba(0, 0, 0, 0.5);
-            padding: 0.8rem;
+            text-shadow: 1.28px 1.28px 2.56px rgba(0, 0, 0, 0.5); /* Reduced from 1.6px, 3.2px */
+            padding: 0.64rem; /* Reduced from 0.8rem */
             overflow-y: auto;
         }
         #winners-circle-cover h1 {
-            font-size: 2rem;
+            font-size: 1.6rem; /* Reduced from 2rem */
             color: #FFFFFF;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.64rem; /* Reduced from 0.8rem */
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.6px; /* Reduced from 2px */
             background: rgba(0, 0, 0, 0.7);
-            padding: 0.4rem 1rem;
-            border-radius: 10px;
+            padding: 0.32rem 0.8rem; /* Reduced from 0.4rem 1rem */
+            border-radius: 8px; /* Reduced from 10px */
         }
         .license-plates {
             width: 100%;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            gap: 0.64rem; /* Reduced from 0.8rem */
             justify-content: center;
             align-items: center;
-            padding: 0.8rem 0;
+            padding: 0.64rem 0; /* Reduced from 0.8rem */
         }
         .category-tile {
             background: #FFD700;
-            border: 4px solid #000;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-            padding: 0.5rem;
+            border: 3.2px solid #000; /* Reduced from 4px */
+            border-radius: 4px; /* Reduced from 5px */
+            box-shadow: 0 3.2px 6.4px rgba(0, 0, 0, 0.5); /* Reduced from 4px, 8px */
+            padding: 0.4rem; /* Reduced from 0.5rem */
             text-align: center;
             position: relative;
             flex: 0 0 auto;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-width: 360px;
-            min-height: 180px;
+            min-width: 288px; /* Reduced from 360px */
+            min-height: 144px; /* Reduced from 180px */
             opacity: 0;
             transform: scale(0.5);
             box-sizing: border-box;
@@ -361,11 +373,11 @@
         @keyframes slideBounce {
             0% {
                 opacity: 0;
-                transform: translateY(40px) scale(0.5);
+                transform: translateY(32px) scale(0.5); /* Reduced from 40px */
             }
             70% {
                 opacity: 1;
-                transform: translateY(-8px) scale(1.05);
+                transform: translateY(-6.4px) scale(1.05); /* Reduced from -8px */
             }
             100% {
                 opacity: 1;
@@ -373,21 +385,21 @@
             }
         }
         .category-tile h3 {
-            font-size: 0.9rem;
+            font-size: 0.72rem; /* Reduced from 0.9rem */
             color: #000;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.16rem; /* Reduced from 0.2rem */
             text-transform: uppercase;
             white-space: nowrap;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 0.8px; /* Reduced from 1px */
         }
         .winner-reveal {
-            font-size: 1.6rem;
+            font-size: 1.28rem; /* Reduced from 1.6rem */
             color: #000;
-            margin: 0.2rem 0;
+            margin: 0.16rem 0; /* Reduced from 0.2rem */
             font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
-            letter-spacing: 1px;
+            text-shadow: 0.8px 0.8px 1.6px rgba(255, 255, 255, 0.5); /* Reduced from 1px, 2px */
+            letter-spacing: 0.8px; /* Reduced from 1px */
             flex-grow: 1;
             display: flex;
             align-items: center;
@@ -403,44 +415,44 @@
         .sticker-boxes {
             display: flex;
             justify-content: space-between;
-            margin-top: 0.2rem;
+            margin-top: 0.16rem; /* Reduced from 0.2rem */
         }
         .sticker-box {
             background: rgba(255, 255, 255, 0.6);
-            border: 2px solid #000;
-            height: 18.75px;
+            border: 1.6px solid #000; /* Reduced from 2px */
+            height: 15px; /* Reduced from 18.75px */
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+            box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3); /* Reduced from 5px */
         }
         .sticker-box:nth-child(2) {
             width: 50%;
-            margin: 0 2%;
+            margin: 0 1.6%; /* Reduced from 2% */
         }
         .sticker-box:nth-child(1),
         .sticker-box:nth-child(3) {
             width: 24%;
         }
         .sticker-box span {
-            font-size: 0.7rem;
+            font-size: 0.56rem; /* Reduced from 0.7rem */
             color: #000;
             white-space: nowrap;
             transform-origin: center;
         }
         #winners-circle-cover button {
-            padding: 0.8rem 2rem;
-            font-size: 1.2rem;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
+            padding: 0.64rem 1.6rem; /* Reduced from 0.8rem 2rem */
+            font-size: 0.96rem; /* Reduced from 1.2rem */
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
             background-color: #008390;
             color: #FFFFFF;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
             text-transform: uppercase;
             touch-action: manipulation;
-            min-height: 48px;
+            min-height: 38.4px; /* Reduced from 48px */
             width: auto;
             display: block;
             text-align: center;
@@ -453,8 +465,8 @@
         #winners-buttons {
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
-            margin: 0.8rem 0;
+            gap: 0.4rem; /* Reduced from 0.5rem */
+            margin: 0.64rem 0; /* Reduced from 0.8rem */
         }
         /* Reset Confirmation Modal */
         #reset-modal {
@@ -471,30 +483,30 @@
         }
         #reset-modal .modal-content {
             background: rgba(0, 95, 107, 0.8);
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
-            padding: 1.5rem;
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
+            padding: 1.2rem; /* Reduced from 1.5rem */
             text-align: center;
             max-width: 90%;
-            width: 300px;
+            width: 240px; /* Reduced from 300px */
         }
         #reset-modal .modal-content p {
             color: #FFFFFF;
-            font-size: 1rem;
-            margin-bottom: 1rem;
+            font-size: 0.8rem; /* Reduced from 1rem */
+            margin-bottom: 0.8rem; /* Reduced from 1rem */
             text-transform: uppercase;
         }
         #reset-modal .modal-content button {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
+            padding: 0.4rem 0.8rem; /* Reduced from 0.5rem 1rem */
+            font-size: 0.8rem; /* Reduced from 1rem */
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
             cursor: pointer;
-            margin: 0 0.5rem;
+            margin: 0 0.4rem; /* Reduced from 0.5rem */
             transition: background-color 0.2s, transform 0.2s;
             text-transform: uppercase;
             touch-action: manipulation;
-            min-height: 48px;
+            min-height: 38.4px; /* Reduced from 48px */
         }
         #reset-modal .modal-content .submit {
             background-color: #008390;
@@ -515,11 +527,11 @@
         /* Exhaust Smoke Animation */
         .exhaust-smoke {
             position: absolute;
-            bottom: -40px;
+            bottom: -32px; /* Reduced from -40px */
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
-            height: 40px;
+            width: 32px; /* Reduced from 40px */
+            height: 32px; /* Reduced from 40px */
             background: transparent;
             opacity: 0;
             animation: smoke 0.5s ease-out;
@@ -532,7 +544,7 @@
             }
             100% {
                 opacity: 0;
-                transform: translateY(-80px) scale(2);
+                transform: translateY(-64px) scale(2); /* Reduced from -80px */
             }
         }
         .exhaust-smoke::before {
@@ -554,12 +566,12 @@
         /* Tire Marks Animation */
         .tire-marks {
             position: absolute;
-            bottom: -16px;
+            bottom: -12.8px; /* Reduced from -16px */
             left: 50%;
             transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background: repeating-linear-gradient(to right, #000 0, #000 8px, transparent 8px, transparent 16px);
+            width: 64px; /* Reduced from 80px */
+            height: 3.2px; /* Reduced from 4px */
+            background: repeating-linear-gradient(to right, #000 0, #000 6.4px, transparent 6.4px, transparent 12.8px); /* Reduced from 8px, 16px */
             opacity: 0;
             animation: skid 0.5s ease-out;
             pointer-events: none;
@@ -577,22 +589,22 @@
         /* Control Container */
         .control-container {
             position: absolute;
-            bottom: 0.4rem;
+            bottom: 0.32rem; /* Reduced from 0.4rem */
             left: 0;
             right: 0;
             width: 100%;
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            padding: 0 0.8rem;
+            padding: 0 0.64rem; /* Reduced from 0.8rem */
         }
         .speaker-icon {
-            font-size: 2rem;
+            font-size: 1.6rem; /* Reduced from 2rem */
             color: #00C4B4;
             cursor: pointer;
-            margin-right: 0.4rem;
+            margin-right: 0.32rem; /* Reduced from 0.4rem */
             touch-action: manipulation;
-            min-height: 48px;
+            min-height: 38.4px; /* Reduced from 48px */
         }
         /* Footer */
         .footer {
@@ -600,47 +612,47 @@
             bottom: 0;
             width: 100%;
             text-align: center;
-            padding: 0.3rem 0;
+            padding: 0.24rem 0; /* Reduced from 0.3rem */
             background: rgba(0, 0, 0, 0.7);
-            font-size: 0.6rem;
+            font-size: 0.48rem; /* Reduced from 0.6rem */
             z-index: 1001;
         }
         /* Toast Notification */
         .toast {
             position: fixed;
-            bottom: 64px;
+            bottom: 51.2px; /* Reduced from 64px */
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.7);
             color: #FFFFFF;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 6.4px 12.8px; /* Reduced from 8px 16px */
+            border-radius: 6.4px; /* Reduced from 8px */
             z-index: 4000;
             transition: opacity 0.3s;
         }
         /* Scoreboard Buttons */
         #scoreboard-buttons {
             position: absolute;
-            bottom: 2rem;
+            bottom: 1.6rem; /* Reduced from 2rem */
             left: 0;
             right: 0;
             display: flex;
             justify-content: center;
-            gap: 0.5rem;
+            gap: 0.4rem; /* Reduced from 0.5rem */
             z-index: 1000;
         }
         #scoreboard-buttons button {
-            padding: 0.8rem 2rem;
-            font-size: 1.2rem;
-            border: 2px solid #00C4B4;
-            border-radius: 10px;
+            padding: 0.64rem 1.6rem; /* Reduced from 0.8rem 2rem */
+            font-size: 0.96rem; /* Reduced from 1.2rem */
+            border: 1.6px solid #00C4B4; /* Reduced from 2px */
+            border-radius: 8px; /* Reduced from 10px */
             background-color: #008390;
             color: #FFFFFF;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.2s;
             text-transform: uppercase;
             touch-action: manipulation;
-            min-height: 48px;
+            min-height: 38.4px; /* Reduced from 48px */
         }
         #scoreboard-buttons button:hover {
             background-color: #006F7D;
@@ -648,87 +660,87 @@
         }
         @media (max-width: 600px) {
             body {
-                padding: 0.4rem;
+                padding: 0.32rem; /* Reduced from 0.4rem */
             }
             #splash-screen {
-                padding-bottom: 3rem;
+                padding-bottom: 2.4rem; /* Reduced from 3rem */
             }
             #splash-screen h1 {
-                font-size: 1.2rem;
+                font-size: 0.96rem; /* Reduced from 1.2rem */
             }
             #splash-screen p {
-                font-size: 0.96rem;
+                font-size: 0.768rem; /* Reduced from 0.96rem */
             }
             #splash-screen textarea {
-                font-size: 0.8rem;
+                font-size: 0.64rem; /* Reduced from 0.8rem */
                 width: 90%;
-                height: 80px;
+                height: 64px; /* Reduced from 80px */
             }
             #splash-screen button {
-                font-size: 0.96rem;
-                padding: 0.64rem 1.44rem;
-                min-height: 38.4px;
+                font-size: 0.768rem; /* Reduced from 0.96rem */
+                padding: 0.512rem 1.152rem; /* Reduced from 0.64rem 1.44rem */
+                min-height: 30.72px; /* Reduced from 38.4px */
             }
             h1 {
-                font-size: 1.2rem;
+                font-size: 0.96rem; /* Reduced from 1.2rem */
             }
             .players-grid {
-                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-                gap: 0.8rem;
+                grid-template-columns: repeat(auto-fit, minmax(128px, 1fr)); /* Reduced from 160px */
+                gap: 0.64rem; /* Reduced from 0.8rem */
             }
             .player-section h2 {
-                font-size: 0.96rem;
+                font-size: 0.768rem; /* Reduced from 0.96rem */
             }
             .total-score {
-                font-size: 0.8rem;
+                font-size: 0.64rem; /* Reduced from 0.8rem */
             }
             .score-card {
                 max-width: 100%;
-                padding: 0.8rem;
+                padding: 0.64rem; /* Reduced from 0.8rem */
             }
             .score-card h3 {
-                font-size: 0.64rem;
+                font-size: 0.512rem; /* Reduced from 0.64rem */
             }
             .score-display {
-                font-size: 1.2rem;
+                font-size: 0.96rem; /* Reduced from 1.2rem */
             }
             .score-controls button {
-                font-size: 0.96rem;
-                padding: 0.32rem 0.64rem;
-                min-height: 38.4px;
+                font-size: 0.768rem; /* Reduced from 0.96rem */
+                padding: 0.256rem 0.512rem; /* Reduced from 0.32rem 0.64rem */
+                min-height: 30.72px; /* Reduced from 38.4px */
             }
             .modal-content {
                 width: 90%;
-                padding: 1.4rem;
+                padding: 1.12rem; /* Reduced from 1.4rem */
             }
             .modal-content p {
-                font-size: 1.26rem;
+                font-size: 1.008rem; /* Reduced from 1.26rem */
             }
             .modal-content input {
-                font-size: 1.26rem;
-                width: 126px;
+                font-size: 1.008rem; /* Reduced from 1.26rem */
+                width: 100.8px; /* Reduced from 126px */
             }
             .modal-content button {
-                font-size: 1.26rem;
-                padding: 0.56rem 1.12rem;
-                min-height: 60.48px;
+                font-size: 1.008rem; /* Reduced from 1.26rem */
+                padding: 0.448rem 0.896rem; /* Reduced from 0.56rem 1.12rem */
+                min-height: 48.384px; /* Reduced from 60.48px */
             }
             .keypad-button {
-                font-size: 2.16rem;
-                min-height: 60.48px;
+                font-size: 1.728rem; /* Reduced from 2.16rem */
+                min-height: 48.384px; /* Reduced from 60.48px */
             }
             #winners-circle-cover h1 {
-                font-size: 1.2rem;
+                font-size: 0.96rem; /* Reduced from 1.2rem */
             }
             .category-tile {
-                min-width: 288px;
-                min-height: 144px;
+                min-width: 230.4px; /* Reduced from 288px */
+                min-height: 115.2px; /* Reduced from 144px */
             }
             .category-tile h3 {
-                font-size: 0.72rem;
+                font-size: 0.576rem; /* Reduced from 0.72rem */
             }
             .winner-reveal {
-                font-size: 1.2rem;
+                font-size: 0.96rem; /* Reduced from 1.2rem */
                 line-height: 1.2;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -736,54 +748,68 @@
                 white-space: normal;
             }
             .sticker-box {
-                height: 15px;
+                height: 12px; /* Reduced from 15px */
             }
             .sticker-box span {
-                font-size: 0.56rem;
+                font-size: 0.448rem; /* Reduced from 0.56rem */
             }
             #winners-circle-cover button {
-                font-size: 0.96rem;
-                padding: 0.64rem 1.44rem;
-                min-height: 38.4px;
+                font-size: 0.768rem; /* Reduced from 0.96rem */
+                padding: 0.512rem 1.152rem; /* Reduced from 0.64rem 1.44rem */
+                min-height: 30.72px; /* Reduced from 38.4px */
             }
             #scoreboard-buttons button {
-                font-size: 0.96rem;
-                padding: 0.64rem 1.44rem;
-                min-height: 38.4px;
+                font-size: 0.768rem; /* Reduced from 0.96rem */
+                padding: 0.512rem 1.152rem; /* Reduced from 0.64rem 1.44rem */
+                min-height: 30.72px; /* Reduced from 38.4px */
             }
             .control-container {
-                padding: 0 0.4rem;
-                bottom: 0.3rem;
+                padding: 0 0.32rem; /* Reduced from 0.4rem */
+                bottom: 0.24rem; /* Reduced from 0.3rem */
             }
             .speaker-icon {
-                font-size: 1.6rem;
-                min-height: 38.4px;
+                font-size: 1.28rem; /* Reduced from 1.6rem */
+                min-height: 30.72px; /* Reduced from 38.4px */
             }
         }
     </style>
 </head>
 <body>
-    <!-- Splash Screen -->
-    <div id="splash-screen">
-        <h1>BiG KiD CARDS Score Keeper</h1>
-        <p>Enter player names (one per line):</p>
-        <textarea id="player-names" rows="4" placeholder="Player 1\nPlayer 2\nPlayer 3" aria-label="Enter player names, one per line"></textarea>
-        <button onclick="startGame()">Let’s Roll!</button>
-        <div class="control-container" id="splash-control-container">
-            <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+    <div class="content-wrapper">
+        <!-- Splash Screen -->
+        <div id="splash-screen">
+            <h1>BiG KiD CARDS Score Keeper</h1>
+            <p>Enter player names (one per line):</p>
+            <textarea id="player-names" rows="4" placeholder="Player 1\nPlayer 2\nPlayer 3" aria-label="Enter player names, one per line"></textarea>
+            <button onclick="startGame()">Let’s Roll!</button>
+            <div class="control-container" id="splash-control-container">
+                <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+            </div>
         </div>
-    </div>
-    <!-- Main Content -->
-    <div id="main-content">
-        <h1>Scoreboard</h1>
-        <div id="players-container" class="players-grid"></div>
-        <div id="scoreboard-buttons">
-            <button id="undo-button" onclick="undoScoreChange()">Undo</button>
-            <button id="restart-button" onclick="openResetModal()">Reset</button>
-            <button id="results-button" onclick="openWinnersCircle()">Results</button>
+        <!-- Main Content -->
+        <div id="main-content">
+            <h1>Scoreboard</h1>
+            <div id="players-container" class="players-grid"></div>
+            <div id="scoreboard-buttons">
+                <button id="undo-button" onclick="undoScoreChange()">Undo</button>
+                <button id="restart-button" onclick="openResetModal()">Reset</button>
+                <button id="results-button" onclick="openWinnersCircle()">Results</button>
+            </div>
+            <div class="control-container">
+                <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+            </div>
         </div>
-        <div class="control-container">
-            <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+        <!-- Winners Circle Cover -->
+        <div id="winners-circle-cover">
+            <h1 id="winners-title">Winner's Circle</h1>
+            <div class="license-plates" id="license-plates"></div>
+            <div id="winners-buttons">
+                <button id="rematch-button" onclick="rematchGame()">Rematch</button>
+                <button id="reset-button" onclick="resetGame()">Reset</button>
+            </div>
+            <div class="control-container" id="winner-control-container">
+                <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+            </div>
         </div>
     </div>
     <!-- Modal for Score Input -->
@@ -809,18 +835,6 @@
                 <button class="submit" onclick="submitScoreChange()" aria-label="Submit score change">Submit</button>
                 <button class="cancel" onclick="closeModal()" aria-label="Cancel score change">Cancel</button>
             </div>
-        </div>
-    </div>
-    <!-- Winners Circle Cover -->
-    <div id="winners-circle-cover">
-        <h1 id="winners-title">Winner's Circle</h1>
-        <div class="license-plates" id="license-plates"></div>
-        <div id="winners-buttons">
-            <button id="rematch-button" onclick="rematchGame()">Rematch</button>
-            <button id="reset-button" onclick="resetGame()">Reset</button>
-        </div>
-        <div class="control-container" id="winner-control-container">
-            <span class="speaker-icon" onclick="toggleMute()">🔊</span>
         </div>
     </div>
     <!-- Reset Confirmation Modal -->
