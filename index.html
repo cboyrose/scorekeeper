@@ -23,32 +23,33 @@
             overflow-x: hidden;
             transition: background 0.3s;
         }
-        /* iPhone-specific scaling for main content and score modal */
+        /* iPhone-specific scaling */
         @media only screen and (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 896px) {
             .content-wrapper {
-                transform: scale(0.72);
+                transform: scale(0.792);
                 transform-origin: top left;
-                width: 138.89%;
-                height: 138.89%;
+                width: 126.26%;
+                height: 126.26%;
             }
-            #splash-screen, #winners-circle-cover {
-                width: 125%;
-                height: 125%;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%) scale(0.8);
+            .screen-content {
+                transform: scale(0.88);
                 transform-origin: center;
             }
             .player-section {
-                transform: scale(0.9);
-                transform-origin: center;
-            }
-            #score-modal .modal-content {
+                transform: scale(0.99);
                 transform-origin: center;
             }
             body {
                 overflow: auto;
             }
+        }
+        .screen-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
         }
         /* Splash Screen */
         #splash-screen {
@@ -58,10 +59,6 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Start.jpg') no-repeat center center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
             z-index: 2000;
             text-shadow: 1.28px 1.28px 2.56px rgba(0, 0, 0, 0.5);
             padding-bottom: 1.92rem;
@@ -135,15 +132,16 @@
             border-radius: 7.2px;
         }
         .players-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 1.08rem;
             width: 100%;
             flex-grow: 1;
         }
         .player-section {
-            margin-bottom: 1.08rem;
             text-align: center;
+            width: 216px;
         }
         .player-header {
             display: flex;
@@ -336,8 +334,6 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Winner.jpg') no-repeat center center/cover;
-            flex-direction: column;
-            align-items: center;
             z-index: 2000;
             text-shadow: 1.28px 1.28px 2.56px rgba(0, 0, 0, 0.5);
             padding: 0.64rem;
@@ -700,18 +696,17 @@
                 font-size: 0.864rem;
             }
             .players-grid {
-                grid-template-columns: repeat(auto-fit, minmax(115.2px, 1fr));
                 gap: 0.576rem;
             }
-            .player-section h2 {
-                font-size: 0.6912rem;
+            .player-section {
+                width: 115.2px;
             }
             .total-score {
                 font-size: 0.576rem;
             }
             .score-card {
-                max-width: 100%;
                 padding: 0.576rem;
+                max-width: 100%;
             }
             .score-card h3 {
                 font-size: 0.4608rem;
@@ -756,11 +751,6 @@
             }
             .winner-reveal {
                 font-size: 0.96rem;
-                line-height: 1.2;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                word-wrap: break-word;
-                white-space: normal;
             }
             .sticker-box {
                 height: 12px;
@@ -792,12 +782,14 @@
 <body>
     <!-- Splash Screen -->
     <div id="splash-screen">
-        <h1>BiG KiD CARDS Score Keeper</h1>
-        <p>Enter player names (one per line):</p>
-        <textarea id="player-names" rows="4" placeholder="Player 1\nPlayer 2\nPlayer 3" aria-label="Enter player names, one per line"></textarea>
-        <button onclick="startGame()">Let’s Roll!</button>
-        <div class="control-container" id="splash-control-container">
-            <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+        <div class="screen-content">
+            <h1>BiG KiD CARDS Score Keeper</h1>
+            <p>Enter player names (one per line):</p>
+            <textarea id="player-names" rows="4" placeholder="Player 1\nPlayer 2\nPlayer 3" aria-label="Enter player names, one per line"></textarea>
+            <button onclick="startGame()">Let’s Roll!</button>
+            <div class="control-container" id="splash-control-container">
+                <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+            </div>
         </div>
     </div>
     <!-- Main Content -->
@@ -817,14 +809,16 @@
     </div>
     <!-- Winners Circle Cover -->
     <div id="winners-circle-cover">
-        <h1 id="winners-title">Winner's Circle</h1>
-        <div class="license-plates" id="license-plates"></div>
-        <div id="winners-buttons">
-            <button id="rematch-button" onclick="rematchGame()">Rematch</button>
-            <button id="reset-button" onclick="resetGame()">Reset</button>
-        </div>
-        <div class="control-container" id="winner-control-container">
-            <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+        <div class="screen-content">
+            <h1 id="winners-title">Winner's Circle</h1>
+            <div class="license-plates" id="license-plates"></div>
+            <div id="winners-buttons">
+                <button id="rematch-button" onclick="rematchGame()">Rematch</button>
+                <button id="reset-button" onclick="resetGame()">Reset</button>
+            </div>
+            <div class="control-container" id="winner-control-container">
+                <span class="speaker-icon" onclick="toggleMute()">🔊</span>
+            </div>
         </div>
     </div>
     <!-- Modal for Score Input -->
@@ -879,15 +873,13 @@
     <audio id="screech-sound-4" src="screech4.mp3" preload="auto"></audio>
     <audio id="screech-sound-5" src="screech5.mp3" preload="auto"></audio>
     <script>
-        // ... (The JavaScript remains unchanged from the previous version)
-        // Object to store scores and history
+        // The JavaScript code remains the same as before
         let scores = JSON.parse(localStorage.getItem('scores')) || {};
         let playerNames = JSON.parse(localStorage.getItem('playerNames')) || [];
         let scoreHistory = JSON.parse(localStorage.getItem('scoreHistory')) || [];
         let isMuted = localStorage.getItem('isMuted') === 'true';
         let currentPlayer, currentCategory, currentDirection;
         let lastToastTime = 0;
-        // Custom Keypad Event Listeners
         const keypadButtons = document.querySelectorAll('.keypad-button');
         keypadButtons.forEach(btn => {
             btn.addEventListener('click', () => {
