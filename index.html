@@ -52,6 +52,23 @@
             margin-bottom: 1rem;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
         }
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 8px solid #00C4B4;
+            border-top: 8px solid #008390;
+            border-radius: 50%;
+            animation: spin 1.2s ease-in-out infinite, pulse 2s ease-in-out infinite;
+            margin-top: 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
         /* iPhone-specific scaling */
         @media only screen and (-webkit-min-device-pixel-ratio: 1) and (max-device-width: 896px) {
             .content-wrapper {
@@ -76,7 +93,7 @@
         @media (min-width: 768px) and (max-width: 1024px) {
             .keypad {
                 gap: 0.5rem;
-                max-width: 350px;
+                width: clamp(150px, 50vw, 350px);
             }
             .keypad-button {
                 font-size: 1.8rem;
@@ -329,7 +346,7 @@
             gap: clamp(0.3rem, 1vw, 0.5rem);
             margin-top: clamp(1rem, 4vw, 1.75rem);
             margin-bottom: clamp(1rem, 4vw, 1.75rem);
-            width: clamp(150px, 60vw, 300px);
+            width: clamp(150px, 50vw, 300px);
             justify-content: center;
         }
         .keypad-button {
@@ -444,7 +461,7 @@
             letter-spacing: 1px;
         }
         .winner-reveal {
-            font-size: clamp(1.25rem, 6.25vw, 2.5rem);
+            font-size: clamp(1.5rem, 7.5vw, 3rem);
             color: #000;
             margin: 0.2rem 0;
             font-weight: bold;
@@ -482,6 +499,8 @@
         .sticker-box:nth-child(2) {
             width: 50%;
             margin: 0 2%;
+            height: 80%;
+            align-self: center;
         }
         .sticker-box:nth-child(1),
         .sticker-box:nth-child(3) {
@@ -579,11 +598,8 @@
         /* Exhaust Smoke Animation */
         .exhaust-smoke {
             position: absolute;
-            bottom: -80px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 80px;
+            width: 160px;
+            height: 160px;
             background: transparent;
             opacity: 0;
             animation: smoke 0.5s ease-out;
@@ -597,7 +613,7 @@
             }
             100% {
                 opacity: 0;
-                transform: translateY(-160px) scale(2);
+                transform: translateY(-320px) scale(2);
             }
         }
         .exhaust-smoke::before {
@@ -619,7 +635,6 @@
         /* Tire Marks Animation */
         .tire-marks-left, .tire-marks-right {
             position: absolute;
-            bottom: -32px;
             width: 320px;
             height: 16px;
             background: repeating-linear-gradient(to right, #000 0, #000 32px, transparent 32px, transparent 64px);
@@ -629,12 +644,6 @@
             z-index: 3200;
             transform: rotate(20deg);
             clip-path: inset(0 100% 0 0);
-        }
-        .tire-marks-left {
-            left: calc(50% - 80px);
-        }
-        .tire-marks-right {
-            left: calc(50% + 80px);
         }
         @keyframes revealTire {
             0% {
@@ -791,7 +800,7 @@
             }
             .keypad {
                 gap: 0.3rem;
-                width: clamp(150px, 60vw, 200px);
+                width: clamp(120px, 50vw, 180px);
             }
             .keypad-button {
                 font-size: 1.2rem;
@@ -806,7 +815,7 @@
                 min-height: 115px;
             }
             .winner-reveal {
-                font-size: 1.2rem;
+                font-size: clamp(1.2rem, 6vw, 1.5rem);
                 line-height: 1.2;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -844,6 +853,7 @@
     <!-- Loading Screen -->
     <div id="loading-screen">
         <p>Loading...</p>
+        <div class="spinner"></div>
     </div>
     <!-- Splash Screen -->
     <div id="splash-screen">
@@ -1024,6 +1034,12 @@
             return name.replace(/[<>&"]/g, '').trim().slice(0, 20);
         }
 
+        function getRandomPosition(maxWidth, maxHeight, elementWidth, elementHeight) {
+            const x = Math.random() * (maxWidth - elementWidth);
+            const y = Math.random() * (maxHeight - elementHeight);
+            return { left: `${x}px`, bottom: `${y}px` };
+        }
+
         function startGame() {
             const namesInput = document.getElementById('player-names').value.trim();
             playerNames = namesInput.split('\n').map(sanitizeName).filter(name => name !== '');
@@ -1132,22 +1148,32 @@
             if (direction > 0) {
                 const smoke1 = document.createElement('div');
                 smoke1.className = 'exhaust-smoke';
-                smoke1.style.left = '45%';
+                const pos1 = getRandomPosition(scoreCard.offsetWidth, scoreCard.offsetHeight, 160, 160);
+                smoke1.style.left = pos1.left;
+                smoke1.style.bottom = pos1.bottom;
                 scoreCard.appendChild(smoke1);
                 setTimeout(() => smoke1.remove(), 500);
                 setTimeout(() => {
                     const smoke2 = document.createElement('div');
                     smoke2.className = 'exhaust-smoke';
-                    smoke2.style.left = '55%';
+                    const pos2 = getRandomPosition(scoreCard.offsetWidth, scoreCard.offsetHeight, 160, 160);
+                    smoke2.style.left = pos2.left;
+                    smoke2.style.bottom = pos2.bottom;
                     scoreCard.appendChild(smoke2);
                     setTimeout(() => smoke2.remove(), 500);
                 }, 500);
             } else {
                 const marksLeft = document.createElement('div');
                 marksLeft.className = 'tire-marks-left';
+                const posLeft = getRandomPosition(scoreCard.offsetWidth, scoreCard.offsetHeight, 320, 16);
+                marksLeft.style.left = posLeft.left;
+                marksLeft.style.bottom = posLeft.bottom;
                 scoreCard.appendChild(marksLeft);
                 const marksRight = document.createElement('div');
                 marksRight.className = 'tire-marks-right';
+                const posRight = getRandomPosition(scoreCard.offsetWidth, scoreCard.offsetHeight, 320, 16);
+                marksRight.style.left = posRight.left;
+                marksRight.style.bottom = posRight.bottom;
                 scoreCard.appendChild(marksRight);
                 setTimeout(() => {
                     marksLeft.remove();
